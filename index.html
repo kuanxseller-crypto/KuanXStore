@@ -832,214 +832,230 @@
                     </div>
 
                     <!-- PAYSAFE DIRECT CONTENT -->
-                    <div id="psDirectCard" class="detail-card" style="display: none; text-align: center;">
-                        <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.75rem;">
-                            Apasă mai jos pentru a trimite codul Paysafecard direct pe WhatsApp operatorului:
-                        </p>
-                        <a id="waDirectLink" href="#" target="_blank" class="btn-primary btn-whatsapp" style="margin-top: 0; text-decoration: none;">
-                            <i class="fa-brands fa-whatsapp"></i> Trimite Codul pe WhatsApp
-                        </a>
-                    </div>
-                </div>
-
-                <!-- BANK DETAILS CONTENT -->
-                <div id="bankSection" class="method-options">
-                    <div class="detail-card">
-                        <div class="detail-row">
-                            <span class="detail-label">Nume Beneficiar:</span>
-                            <div class="copy-box">
-                                <span>Ceobanu Ioan</span>
-                            </div>
-                        </div>
-                        <div class="detail-row">
-                            <span class="detail-label">IBAN:</span>
-                            <div class="copy-box">
-                                <span style="font-size: 0.8rem;">RO72BTRLRONCRT0CO7367301</span>
-                                <button class="copy-btn" onclick="copyText('RO72BTRLRONCRT0CO7367301')">Copiază</button>
-                            </div>
-                        </div>
-                        <div class="detail-row">
-                            <span class="detail-label">Cod Referință Transfer:</span>
-                            <div class="copy-box">
-                                <span id="bankCodeDisplay">#KX-00000</span>
-                                <button class="copy-btn" onclick="copyText(currentRandomCode)">Copiază</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- CONFIRMATION / PROOF SECTION -->
-                <div id="proofSection" class="proof-box">
-                    <p>
-                        <strong>IMPORTANT:</strong> Pentru eliberarea cheii de activare, trimiteți dovada/factura plății pe WhatsApp împreună cu codul comenzii!
+                <div id="psDirectCard" class="detail-card" style="display: none; text-align: center;">
+                    <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.75rem;">
+                        Apasă mai jos pentru a trimite codul Paysafecard direct pe WhatsApp operatorului:
                     </p>
-                    <a id="waProofLink" href="#" target="_blank" class="btn-primary btn-whatsapp" style="margin-top: 0; text-decoration: none; font-size: 0.95rem;">
-                        <i class="fa-brands fa-whatsapp"></i> Trimite Dovada pe WhatsApp
-                    </a>
+                    <button class="btn-primary btn-whatsapp" style="margin-top: 0; width: 100%;" onclick="sendDirectWhatsApp('Paysafecard (Cod Direct)')">
+                        <i class="fa-brands fa-whatsapp"></i> Trimite Codul pe WhatsApp
+                    </button>
                 </div>
-
             </div>
+
+            <!-- BANK DETAILS CONTENT -->
+            <div id="bankSection" class="method-options">
+                <div class="detail-card">
+                    <div class="detail-row">
+                        <span class="detail-label">Nume Beneficiar:</span>
+                        <div class="copy-box">
+                            <span>Ceobanu Ioan</span>
+                        </div>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">IBAN:</span>
+                        <div class="copy-box">
+                            <span style="font-size: 0.8rem;">RO72BTRLRONCRT0CO7367301</span>
+                            <button class="copy-btn" onclick="copyText('RO72BTRLRONCRT0CO7367301')">Copiază</button>
+                        </div>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Cod Referință Transfer:</span>
+                        <div class="copy-box">
+                            <span id="bankCodeDisplay">#KX-00000</span>
+                            <button class="copy-btn" onclick="copyText(currentRandomCode)">Copiază</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CONFIRMATION / PROOF SECTION -->
+            <div id="proofSection" class="proof-box">
+                <p>
+                    <strong>IMPORTANT:</strong> Pentru eliberarea cheii de activare, trimiteți dovada/factura plății pe WhatsApp împreună cu codul comenzii!
+                </p>
+                <button class="btn-primary btn-whatsapp" style="margin-top: 0; width: 100%; font-size: 0.95rem;" onclick="sendDirectWhatsApp(selectedPaymentMethodName)">
+                    <i class="fa-brands fa-whatsapp"></i> Trimite Comanda & Dovada pe WhatsApp
+                </button>
+            </div>
+
         </div>
     </div>
+</div>
 
-    <!-- TOAST NOTIFICATION -->
-    <div id="toast" class="toast">
-        <i class="fa-solid fa-circle-check" style="color: var(--green-accent);"></i>
-        <span id="toastMsg">Notificare</span>
-    </div>
+<!-- TOAST NOTIFICATION -->
+<div id="toast" class="toast">
+    <i class="fa-solid fa-circle-check" style="color: var(--green-accent);"></i>
+    <span id="toastMsg">Notificare</span>
+</div>
 
-    <script>
-        let currentRandomCode = "";
+<script>
+    let currentRandomCode = "";
+    let selectedPaymentMethodName = "Plată Neconfirmată";
 
-        // Generate Random Transaction Code
-        function generateCode() {
-            const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
-            let result = '#KX-';
-            for (let i = 0; i < 5; i++) {
-                result += chars.charAt(Math.floor(Math.random() * chars.length));
-            }
-            return result;
+    // Generate Random Transaction Code
+    function generateCode() {
+        const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+        let result = '#KX-';
+        for (let i = 0; i < 5; i++) {
+            result += chars.charAt(Math.floor(Math.random() * chars.length));
+        }
+        return result;
+    }
+
+    // Handle Product Selector
+    function handleProductChange() {
+        const select = document.getElementById('productSelect');
+        const selectedOpt = select.options[select.selectedIndex];
+
+        if (!selectedOpt.value) return;
+
+        const name = selectedOpt.text;
+        const eur = selectedOpt.getAttribute('data-eur');
+        const ron = selectedOpt.getAttribute('data-ron');
+        const note = selectedOpt.getAttribute('data-note');
+
+        document.getElementById('displayProductName').innerText = name;
+        
+        const noteElem = document.getElementById('displayProductNote');
+        if (note) {
+            noteElem.innerText = note;
+            noteElem.style.display = 'block';
+        } else {
+            noteElem.style.display = 'none';
         }
 
-        // Handle Product Selector
-        function handleProductChange() {
-            const select = document.getElementById('productSelect');
-            const selectedOpt = select.options[select.selectedIndex];
+        document.getElementById('displayEurPrice').innerText = eur + " €";
+        document.getElementById('displayRonPrice').innerText = "~ " + ron + " Lei";
 
-            if (!selectedOpt.value) return;
+        document.getElementById('productInfoPanel').style.display = 'block';
+    }
 
-            const name = selectedOpt.text;
-            const eur = selectedOpt.getAttribute('data-eur');
-            const ron = selectedOpt.getAttribute('data-ron');
-            const note = selectedOpt.getAttribute('data-note');
+    // Open Modal
+    function openPaymentModal() {
+        const select = document.getElementById('productSelect');
+        const selectedOpt = select.options[select.selectedIndex];
+        if (!selectedOpt.value) return;
 
-            document.getElementById('displayProductName').innerText = name;
-            
-            const noteElem = document.getElementById('displayProductNote');
-            if (note) {
-                noteElem.innerText = note;
-                noteElem.style.display = 'block';
-            } else {
-                noteElem.style.display = 'none';
-            }
+        currentRandomCode = generateCode();
 
-            document.getElementById('displayEurPrice').innerText = eur + " €";
-            document.getElementById('displayRonPrice').innerText = "~ " + ron + " Lei";
+        const name = selectedOpt.text;
+        const eur = selectedOpt.getAttribute('data-eur');
+        const ron = selectedOpt.getAttribute('data-ron');
 
-            document.getElementById('productInfoPanel').style.display = 'block';
-        }
+        document.getElementById('modalProdName').innerText = name;
+        document.getElementById('modalProdPrice').innerText = eur + " € (" + ron + " Lei)";
 
-        // Open Modal
-        function openPaymentModal() {
-            const select = document.getElementById('productSelect');
-            const selectedOpt = select.options[select.selectedIndex];
-            if (!selectedOpt.value) return;
+        document.getElementById('psCodeDisplay').innerText = currentRandomCode;
+        document.getElementById('bankCodeDisplay').innerText = currentRandomCode;
 
-            currentRandomCode = generateCode();
+        resetModalViews();
+        document.getElementById('paymentModal').classList.add('active');
+    }
 
-            const name = selectedOpt.text;
-            const eur = selectedOpt.getAttribute('data-eur');
-            const ron = selectedOpt.getAttribute('data-ron');
+    // Close Modal
+    function closePaymentModal() {
+        document.getElementById('paymentModal').classList.remove('active');
+    }
 
-            document.getElementById('modalProdName').innerText = name;
-            document.getElementById('modalProdPrice').innerText = eur + " € (" + ron + " Lei)";
+    // Reset Modal Views
+    function resetModalViews() {
+        document.getElementById('btnPaysafe').classList.remove('selected');
+        document.getElementById('btnBank').classList.remove('selected');
+        document.getElementById('paysafeSubSection').style.display = 'none';
+        document.getElementById('bankSection').style.display = 'none';
+        document.getElementById('psEmailCard').style.display = 'none';
+        document.getElementById('psDirectCard').style.display = 'none';
+        document.getElementById('proofSection').style.display = 'none';
+        document.getElementById('subEmail').classList.remove('selected');
+        document.getElementById('subDirect').classList.remove('selected');
+        selectedPaymentMethodName = "Plată Neconfirmată";
+    }
 
-            document.getElementById('psCodeDisplay').innerText = currentRandomCode;
-            document.getElementById('bankCodeDisplay').innerText = currentRandomCode;
+    // Select Main Payment Method
+    function selectPaymentMethod(method) {
+        resetModalViews();
 
-            resetModalViews();
-            document.getElementById('paymentModal').classList.add('active');
-        }
-
-        // Close Modal
-        function closePaymentModal() {
-            document.getElementById('paymentModal').classList.remove('active');
-        }
-
-        // Reset Modal Views
-        function resetModalViews() {
-            document.getElementById('btnPaysafe').classList.remove('selected');
-            document.getElementById('btnBank').classList.remove('selected');
-            document.getElementById('paysafeSubSection').style.display = 'none';
-            document.getElementById('bankSection').style.display = 'none';
-            document.getElementById('psEmailCard').style.display = 'none';
-            document.getElementById('psDirectCard').style.display = 'none';
-            document.getElementById('proofSection').style.display = 'none';
-            document.getElementById('subEmail').classList.remove('selected');
-            document.getElementById('subDirect').classList.remove('selected');
-        }
-
-        // Select Main Payment Method
-        function selectPaymentMethod(method) {
-            resetModalViews();
-
-            const prodName = document.getElementById('modalProdName').innerText;
-            const prodPrice = document.getElementById('modalProdPrice').innerText;
-
-            if (method === 'paysafe') {
-                document.getElementById('btnPaysafe').classList.add('selected');
-                document.getElementById('paysafeSubSection').style.display = 'block';
-            } else if (method === 'bank') {
-                document.getElementById('btnBank').classList.add('selected');
-                document.getElementById('bankSection').style.display = 'block';
-                document.getElementById('proofSection').style.display = 'block';
-
-                const msg = encodeURIComponent("Salut! Am efectuat Transfer Bancar pentru " + prodName + " (" + prodPrice + ").\n\nCod Comandă: " + currentRandomCode + "\n\nAtașez dovada plății pentru obținerea cheii de activare.");
-                document.getElementById('waProofLink').href = "https://wa.me/40774485077?text=" + msg;
-            }
-        }
-
-        // Select Paysafe Sub Option
-        function selectPaysafeSub(type) {
-            document.getElementById('psEmailCard').style.display = 'none';
-            document.getElementById('psDirectCard').style.display = 'none';
-            document.getElementById('subEmail').classList.remove('selected');
-            document.getElementById('subDirect').classList.remove('selected');
+        if (method === 'paysafe') {
+            document.getElementById('btnPaysafe').classList.add('selected');
+            document.getElementById('paysafeSubSection').style.display = 'block';
+        } else if (method === 'bank') {
+            selectedPaymentMethodName = "Transfer Bancar";
+            document.getElementById('btnBank').classList.add('selected');
+            document.getElementById('bankSection').style.display = 'block';
             document.getElementById('proofSection').style.display = 'block';
-
-            const prodName = document.getElementById('modalProdName').innerText;
-            const prodPrice = document.getElementById('modalProdPrice').innerText;
-
-            if (type === 'email') {
-                document.getElementById('subEmail').classList.add('selected');
-                document.getElementById('psEmailCard').style.display = 'block';
-
-                const msg = encodeURIComponent("Salut! Am efectuat transfer Paysafecard pe email pentru " + prodName + " (" + prodPrice + ").\n\nCod Comandă: " + currentRandomCode + "\n\nAtașez dovada pentru cheia de activare.");
-                document.getElementById('waProofLink').href = "https://wa.me/40774485077?text=" + msg;
-            } else if (type === 'direct') {
-                document.getElementById('subDirect').classList.add('selected');
-                document.getElementById('psDirectCard').style.display = 'block';
-
-                const directMsg = encodeURIComponent("Salut! Doresc să plătesc cu Cod Direct Paysafecard pentru " + prodName + " (" + prodPrice + ").\n\nCod Comandă: " + currentRandomCode + "\n\nCodul meu Paysafecard este: [Scrie codul tău aici]");
-                document.getElementById('waDirectLink').href = "https://wa.me/40774485077?text=" + directMsg;
-
-                const proofMsg = encodeURIComponent("Salut! Am trimis codul direct Paysafecard pentru " + prodName + " (" + prodPrice + ").\n\nCod Comandă: " + currentRandomCode + "\n\nAștept cheia de activare.");
-                document.getElementById('waProofLink').href = "https://wa.me/40774485077?text=" + proofMsg;
-            }
         }
+    }
 
-        // Copy Text Helper
-        function copyText(text) {
-            const textarea = document.createElement('textarea');
-            textarea.value = text;
-            textarea.style.position = 'fixed';
-            document.body.appendChild(textarea);
-            textarea.select();
-            document.execCommand('copy');
-            document.body.removeChild(textarea);
+    // Select Paysafe Sub Option
+    function selectPaysafeSub(type) {
+        document.getElementById('psEmailCard').style.display = 'none';
+        document.getElementById('psDirectCard').style.display = 'none';
+        document.getElementById('subEmail').classList.remove('selected');
+        document.getElementById('subDirect').classList.remove('selected');
+        document.getElementById('proofSection').style.display = 'block';
 
-            showToast("Copiat în clipboard!");
+        if (type === 'email') {
+            selectedPaymentMethodName = "Paysafecard (Transfer Email)";
+            document.getElementById('subEmail').classList.add('selected');
+            document.getElementById('psEmailCard').style.display = 'block';
+        } else if (type === 'direct') {
+            selectedPaymentMethodName = "Paysafecard (Cod Direct)";
+            document.getElementById('subDirect').classList.add('selected');
+            document.getElementById('psDirectCard').style.display = 'block';
         }
+    }
 
-        // Toast Helper
-        function showToast(msg) {
-            const toast = document.getElementById('toast');
-            document.getElementById('toastMsg').innerText = msg;
-            toast.classList.add('show');
-            setTimeout(() => {
-                toast.classList.remove('show');
-            }, 3000);
-        }
-    </script>
+    // Build and Send Pre-filled WhatsApp Message Automatically
+    function sendDirectWhatsApp(customMethod) {
+        const select = document.getElementById('productSelect');
+        const selectedOpt = select.options[select.selectedIndex];
+        
+        if (!selectedOpt || !selectedOpt.value) return;
+
+        const prodName = selectedOpt.text;
+        const eur = selectedOpt.getAttribute('data-eur');
+        const ron = selectedOpt.getAttribute('data-ron');
+        const optGroup = selectedOpt.parentElement.label || "General";
+        const methodUsed = customMethod || selectedPaymentMethodName || "Nespecificat";
+
+        let text = "🛒 *COMANDĂ NOUĂ - KuanXStore*\n";
+        text += "-----------------------------------\n";
+        text += "📌 *Categorie:* " + optGroup + "\n";
+        text += "🎮 *Produs Selectat:* " + prodName + "\n";
+        text += "💰 *Preț:* " + eur + " € (~ " + ron + " Lei)\n";
+        text += "💳 *Metodă Plată:* " + methodUsed + "\n";
+        text += "🔑 *Cod Comandă:* " + currentRandomCode + "\n";
+        text += "-----------------------------------\n";
+        text += "Atașez mai jos dovada/codul de plată pentru a primi cheia de activare!";
+
+        const encodedMsg = encodeURIComponent(text);
+        const targetUrl = "https://wa.me/40774485077?text=" + encodedMsg;
+
+        window.open(targetUrl, '_blank');
+    }
+
+    // Copy Text Helper
+    function copyText(text) {
+        const textarea = document.createElement('textarea');
+        textarea.value = text;
+        textarea.style.position = 'fixed';
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textarea);
+
+        showToast("Copiat în clipboard!");
+    }
+
+    // Toast Helper
+    function showToast(msg) {
+        const toast = document.getElementById('toast');
+        document.getElementById('toastMsg').innerText = msg;
+        toast.classList.add('show');
+        setTimeout(() => {
+            toast.classList.remove('show');
+        }, 3000);
+    }
+</script>
 </body>
 </html>
