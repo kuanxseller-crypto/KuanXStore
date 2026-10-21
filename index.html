@@ -177,7 +177,7 @@
                     <form onsubmit="handleAdminUpdateBalance(event)" class="space-y-4">
                         <div>
                             <label class="block text-xs font-semibold uppercase text-gray-400 mb-1">Email / Utilizator Client</label>
-                            <input type="text" id="adminSearchEmail" required placeholder="ex: client@domeniu.com sau kuanxseller" class="w-full bg-dark-bg border border-dark-border rounded-lg p-3 text-sm focus:outline-none focus:border-blue-500">
+                            <input type="text" id="adminSearchEmail" required placeholder="ex: client@domeniu.com" class="w-full bg-dark-bg border border-dark-border rounded-lg p-3 text-sm focus:outline-none focus:border-blue-500">
                         </div>
                         <div>
                             <label class="block text-xs font-semibold uppercase text-gray-400 mb-1">Sold Nou (EUR)</label>
@@ -401,7 +401,7 @@
 
         let appState = {
             currentUser: JSON.parse(localStorage.getItem('kuanx_user')) || null,
-            usersDb: JSON.parse(localStorage.getItem('kuanx_users_db_v3')) || {}, 
+            usersDb: JSON.parse(localStorage.getItem('kuanx_users_db_v4')) || {}, 
             categories: JSON.parse(localStorage.getItem('kuanx_categories')) || DEFAULT_CATEGORIES,
             products: JSON.parse(localStorage.getItem('kuanx_products')) || DEFAULT_PRODUCTS,
             orders: JSON.parse(localStorage.getItem('kuanx_orders')) || [],
@@ -411,7 +411,7 @@
 
         function saveData() {
             localStorage.setItem('kuanx_user', JSON.stringify(appState.currentUser));
-            localStorage.setItem('kuanx_users_db_v3', JSON.stringify(appState.usersDb));
+            localStorage.setItem('kuanx_users_db_v4', JSON.stringify(appState.usersDb));
             localStorage.setItem('kuanx_categories', JSON.stringify(appState.categories));
             localStorage.setItem('kuanx_products', JSON.stringify(appState.products));
             localStorage.setItem('kuanx_orders', JSON.stringify(appState.orders));
@@ -437,8 +437,14 @@
 
             if (!email || !password) return;
 
-            // Logare Admin kuanxseller cu parola 1
-            if (email === 'kuanxseller' && password === '1') {
+            // Verificare daca este cont de Admin (orice adresa care contine 'kuanxseller')
+            const isAdminAcc = email.includes('kuanxseller');
+
+            if (isAdminAcc) {
+                if (password !== '1') {
+                    alert('Parolă incorectă de Administrator!');
+                    return;
+                }
                 if (!appState.usersDb[email]) {
                     appState.usersDb[email] = { password: '1', balance: 0.00 };
                 }
@@ -447,7 +453,7 @@
                 document.getElementById('welcomeAuthModal').classList.add('hidden');
                 renderAuthHeader();
                 showSection('admin');
-                showNotification('Te-ai conectat ca Administrator (kuanxseller)!', 'success');
+                showNotification('Te-ai conectat ca Administrator!', 'success');
                 return;
             }
 
@@ -516,15 +522,18 @@
                 const email = appState.currentUser.email;
                 const userData = appState.usersDb[email] || { balance: 0.00 };
 
+                // Daca contul contine kuanxseller, il tratam intotdeauna ca admin
+                const isAdminUser = appState.currentUser.isAdmin || email.includes('kuanxseller');
+
                 container.innerHTML = `
                     <div class="flex items-center space-x-3">
                         <div class="text-right">
                             <div class="text-xs text-gray-400">${email}</div>
                             <div class="text-sm font-bold text-emerald-400">${userData.balance.toFixed(2)} €</div>
                         </div>
-                        ${appState.currentUser.isAdmin ? `
+                        ${isAdminUser ? `
                             <button onclick="showSection('admin')" class="px-3 py-1.5 bg-blue-600/20 text-blue-400 border border-blue-500/30 text-xs font-semibold rounded-lg hover:bg-blue-600/30 transition">
-                                Admin Panel
+                                Panou Admin
                             </button>
                         ` : ''}
                         <button onclick="showSection('userKeys')" class="px-3 py-1.5 bg-dark-border text-gray-300 text-xs font-semibold rounded-lg hover:bg-gray-700 transition">
@@ -708,7 +717,6 @@
                 if (st > 0) prod.stock = (st - 1).toString();
             }
 
-            // GENERARE CHEIE SI INSTRUCTIUNI DUPĂ REGULILE TALE
             let generatedKey = '';
             let isNinja = prod.name.toLowerCase().includes('ninja');
             let isIOS = prod.name.toLowerCase().includes('ios') || prod.name.toLowerCase().includes('iphone') || prod.name.toLowerCase().includes('i3ry');
