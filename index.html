@@ -1,9 +1,9 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="ro">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KuanXStore - Moduri & Certificate Digital Store</title>
+    <title>KuanXStore - Official Digital Store</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script>
@@ -58,7 +58,7 @@
 
             <!-- Meniu Utilizator / Auth -->
             <div id="authControls" class="flex items-center space-x-3">
-                <!-- Starea neautentificat / autentificat va fi randata din JS -->
+                <!-- Randat din JS -->
             </div>
         </div>
     </header>
@@ -81,7 +81,7 @@
                         Chei, Certificate & Moduri Exclusive
                     </h1>
                     <p class="text-gray-400 text-sm sm:text-base">
-                        Sursa ta sigură pentru moduri iOS & Android, certificate garanție 1 an și acces VIP cu livrare prioritară.
+                        Sursa ta sigură pentru moduri iOS & Android, certificate garanție 1 an și plată rapidă cu Paysafecard sau Sold Reseller.
                     </p>
                 </div>
             </div>
@@ -103,8 +103,8 @@
         <div id="adminSection" class="hidden space-y-6">
             <div class="flex justify-between items-center border-b border-dark-border pb-4">
                 <div>
-                    <h2 class="text-2xl font-bold">Panou de Administrare</h2>
-                    <p class="text-gray-400 text-sm">Adaugă moduri, editează stocuri și creează conturi de reseller</p>
+                    <h2 class="text-2xl font-bold">Panou de Administrare - KuanXStore</h2>
+                    <p class="text-gray-400 text-sm">Adaugă moduri, editează stocuri, gestionează categorii și verifică codurile Paysafecard</p>
                 </div>
                 <button onclick="showSection('store')" class="px-4 py-2 border border-dark-border rounded-lg text-sm hover:bg-dark-border transition">
                     <i class="fa-solid fa-arrow-left mr-2"></i> Înapoi la magazin
@@ -123,7 +123,7 @@
                     Gestiune Reselleri
                 </button>
                 <button onclick="switchAdminTab('orders')" id="adminTabOrdersBtn" class="px-4 py-2 bg-dark-card border border-dark-border text-gray-300 hover:text-white rounded-lg text-sm font-medium">
-                    Comenzi & Trimitere Chei
+                    Comenzi & Plăți Paysafecard
                 </button>
             </div>
 
@@ -146,20 +146,20 @@
                             </select>
                         </div>
                         <div>
-                            <label class="block text-xs font-semibold uppercase text-gray-400 mb-1">Perioadă de Timp / Valabilitate</label>
+                            <label class="block text-xs font-semibold uppercase text-gray-400 mb-1">Perioadă / Valabilitate</label>
                             <input type="text" id="prodPeriod" required placeholder="Ex: 1 an, Permanent, 30 zile" class="w-full bg-dark-bg border border-dark-border rounded-lg p-3 text-sm focus:outline-none focus:border-blue-500">
                         </div>
                         <div>
                             <label class="block text-xs font-semibold uppercase text-gray-400 mb-1">Preț Normal (EUR)</label>
-                            <input type="number" step="0.01" id="prodPrice" required placeholder="29" class="w-full bg-dark-bg border border-dark-border rounded-lg p-3 text-sm focus:outline-none focus:border-blue-500">
+                            <input type="number" step="0.01" id="prodPrice" required placeholder="20" class="w-full bg-dark-bg border border-dark-border rounded-lg p-3 text-sm focus:outline-none focus:border-blue-500">
                         </div>
                         <div>
-                            <label class="block text-xs font-semibold uppercase text-gray-400 mb-1">Stoc / Număr Chei (sau 'infinit')</label>
+                            <label class="block text-xs font-semibold uppercase text-gray-400 mb-1">Stoc (sau 'infinit')</label>
                             <input type="text" id="prodStock" required placeholder="Ex: 5 sau infinit" class="w-full bg-dark-bg border border-dark-border rounded-lg p-3 text-sm focus:outline-none focus:border-blue-500">
                         </div>
                         <div>
-                            <label class="block text-xs font-semibold uppercase text-gray-400 mb-1">Descriere / Detalii Adăugătoare</label>
-                            <textarea id="prodDesc" rows="3" placeholder="Ex: Include opțiunea 1 și opțiunea 2..." class="w-full bg-dark-bg border border-dark-border rounded-lg p-3 text-sm focus:outline-none focus:border-blue-500"></textarea>
+                            <label class="block text-xs font-semibold uppercase text-gray-400 mb-1">Descriere Mod</label>
+                            <textarea id="prodDesc" rows="3" placeholder="Detalii produs..." class="w-full bg-dark-bg border border-dark-border rounded-lg p-3 text-sm focus:outline-none focus:border-blue-500"></textarea>
                         </div>
                         <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-lg transition shadow-lg shadow-blue-600/20">
                             Adaugă Produsul
@@ -178,9 +178,8 @@
                 </div>
             </div>
 
-            <!-- Admin Tab 2: Gestiune Categorii -->
+            <!-- Admin Tab 2: Categorii -->
             <div id="adminTabCategories" class="hidden grid grid-cols-1 lg:grid-cols-3 gap-8">
-                <!-- Formular Adaugare Categorie -->
                 <div class="bg-dark-card border border-dark-border rounded-xl p-6 h-fit">
                     <h3 class="text-lg font-bold mb-4 flex items-center">
                         <i class="fa-solid fa-folder-plus text-blue-500 mr-2"></i> Adaugă Categorie Nouă
@@ -208,7 +207,6 @@
                     </form>
                 </div>
 
-                <!-- Lista Categorii -->
                 <div class="lg:col-span-2 bg-dark-card border border-dark-border rounded-xl p-6">
                     <h3 class="text-lg font-bold mb-4 flex items-center">
                         <i class="fa-solid fa-tags text-blue-500 mr-2"></i> Categorii Active
@@ -221,7 +219,6 @@
 
             <!-- Admin Tab 3: Reselleri -->
             <div id="adminTabResellers" class="hidden grid grid-cols-1 lg:grid-cols-3 gap-8">
-                <!-- Formular Creeare Reseller -->
                 <div class="bg-dark-card border border-dark-border rounded-xl p-6 h-fit">
                     <h3 class="text-lg font-bold mb-4 flex items-center">
                         <i class="fa-solid fa-user-plus text-blue-500 mr-2"></i> Creează Cont Reseller
@@ -246,7 +243,6 @@
                     </form>
                 </div>
 
-                <!-- Lista Reselleri -->
                 <div class="lg:col-span-2 bg-dark-card border border-dark-border rounded-xl p-6">
                     <h3 class="text-lg font-bold mb-4 flex items-center">
                         <i class="fa-solid fa-users text-blue-500 mr-2"></i> Conturi Reseller Active
@@ -257,10 +253,10 @@
                 </div>
             </div>
 
-            <!-- Admin Tab 4: Comenzi -->
+            <!-- Admin Tab 4: Comenzi & Paysafecard -->
             <div id="adminTabOrders" class="hidden bg-dark-card border border-dark-border rounded-xl p-6">
                 <h3 class="text-lg font-bold mb-4 flex items-center">
-                    <i class="fa-solid fa-receipt text-blue-500 mr-2"></i> Istoric Comenzi & Trimite Chei
+                    <i class="fa-solid fa-receipt text-blue-500 mr-2"></i> Istoric Comenzi, Coduri Paysafecard & Livrare Chei
                 </h3>
                 <div id="adminOrdersList" class="space-y-4">
                     <!-- Randat JS -->
@@ -273,10 +269,17 @@
             <div class="flex justify-between items-center border-b border-dark-border pb-4">
                 <div>
                     <h2 class="text-2xl font-bold">Cheile și Licențele Mele</h2>
-                    <p class="text-gray-400 text-sm">Aici găsești toate cheile cumpărate de tine de pe KuanXStore</p>
+                    <p class="text-gray-400 text-sm">Căutare după adresă de email sau cont activ</p>
                 </div>
                 <button onclick="showSection('store')" class="px-4 py-2 border border-dark-border rounded-lg text-sm hover:bg-dark-border transition">
                     <i class="fa-solid fa-arrow-left mr-2"></i> Înapoi la magazin
+                </button>
+            </div>
+
+            <div class="bg-dark-card border border-dark-border p-4 rounded-xl flex gap-3">
+                <input type="email" id="searchUserEmail" placeholder="Introdu email-ul folosit la comandă..." class="flex-grow bg-dark-bg border border-dark-border rounded-lg p-3 text-sm focus:outline-none focus:border-blue-500">
+                <button onclick="searchKeysByEmail()" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg text-sm">
+                    Caută Chei
                 </button>
             </div>
 
@@ -294,7 +297,7 @@
                 <i class="fa-solid fa-xmark text-xl"></i>
             </button>
             <h3 class="text-xl font-bold mb-1">Autentificare KuanXStore</h3>
-            <p class="text-gray-400 text-xs mb-6">Introdu datele pentru a accesa contul tău sau panoul Admin</p>
+            <p class="text-gray-400 text-xs mb-6">Autentifică-te ca Admin (`Ioanceobanu987@gmail.com`) sau ca Reseller</p>
 
             <form onsubmit="handleLogin(event)" class="space-y-4">
                 <div>
@@ -312,22 +315,44 @@
         </div>
     </div>
 
-    <!-- Modal Cumparare / Comanda -->
+    <!-- Modal Cumparare / Comanda cu Email si Paysafecard -->
     <div id="buyModal" class="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4 z-50 hidden">
         <div class="bg-dark-card border border-dark-border rounded-2xl w-full max-w-md p-6 relative">
             <button onclick="toggleModal('buyModal', false)" class="absolute top-4 right-4 text-gray-400 hover:text-white">
                 <i class="fa-solid fa-xmark text-xl"></i>
             </button>
-            <h3 class="text-xl font-bold mb-1" id="buyModalTitle">Confirmă Comanda</h3>
+            <h3 class="text-xl font-bold mb-1" id="buyModalTitle">Plasare Comandă</h3>
             <div id="buyModalContent" class="my-4 space-y-3">
                 <!-- Detalii comanda din JS -->
             </div>
+            
+            <div class="space-y-3 pt-2">
+                <div>
+                    <label class="block text-xs font-semibold uppercase text-gray-400 mb-1">Adresa ta de Email (pentru primire cheie)</label>
+                    <input type="email" id="buyerEmailInput" required placeholder="client@domeniu.com" class="w-full bg-dark-bg border border-dark-border rounded-lg p-3 text-sm focus:outline-none focus:border-blue-500">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-semibold uppercase text-gray-400 mb-1">Metodă de Plată</label>
+                    <select id="paymentMethodSelect" onchange="togglePaymentFields()" class="w-full bg-dark-bg border border-dark-border rounded-lg p-3 text-sm focus:outline-none focus:border-blue-500">
+                        <option value="paysafecard">Cod PIN Paysafecard</option>
+                        <option value="balance">Plată din Sold Cont (Reseller / Admin)</option>
+                    </select>
+                </div>
+
+                <div id="paysafecardPinContainer">
+                    <label class="block text-xs font-semibold uppercase text-gray-400 mb-1">Cod PIN Paysafecard (16 cifre)</label>
+                    <input type="text" id="pscPinInput" maxlength="19" placeholder="0000-0000-0000-0000" class="w-full bg-dark-bg border border-dark-border rounded-lg p-3 text-sm font-mono focus:outline-none focus:border-blue-500">
+                    <p class="text-[10px] text-gray-400 mt-1">Comanda va fi trimisă adminului spre verificare și livrare.</p>
+                </div>
+            </div>
+
             <div class="flex space-x-3 mt-6">
                 <button onclick="toggleModal('buyModal', false)" class="w-1/2 border border-dark-border text-gray-300 py-2.5 rounded-lg text-sm hover:bg-dark-border transition">
                     Anulează
                 </button>
                 <button id="confirmBuyBtn" onclick="executePurchase()" class="w-1/2 bg-blue-600 hover:bg-blue-700 text-white font-bold py-2.5 rounded-lg text-sm transition shadow-lg shadow-blue-600/20">
-                    Plătește din Sold
+                    Trimite Comanda
                 </button>
             </div>
         </div>
@@ -340,7 +365,6 @@
 
     <!-- LOGICA SCRIPT JS -->
     <script>
-        // --- STARE DE DATE INITIALE ---
         const DEFAULT_CATEGORIES = [
             { id: 'all', name: 'Toate Modurile', icon: 'fa-layer-group' },
             { id: 'cert', name: 'Certificate iOS / iPad', icon: 'fa-certificate' },
@@ -355,7 +379,7 @@
                 category: 'Certificate iOS / iPad',
                 period: '1 An',
                 price: 50.00,
-                stock: 'infinit',
+                stock: '0',
                 desc: 'Garanție 1 an de zile: primești altul gratuit dacă cel cumpărat își ia revoke.'
             },
             {
@@ -364,7 +388,7 @@
                 category: 'Permanent',
                 period: 'Permanent',
                 price: 10.00,
-                stock: 'infinit',
+                stock: '0',
                 desc: 'Prioritate maximă la cheile cumpărate: primești cheia mult mai rapid după plasarea comenzii.'
             },
             {
@@ -374,11 +398,10 @@
                 period: 'Permanent',
                 price: 20.00,
                 stock: '2',
-                desc: 'Mod 8 Ball Pool. Opțiuni incluse: i3ry permanent iOS (necesită certificat cumpărat dacă clientul nu are) și ninja engine permanent android.'
+                desc: 'Mod 8 Ball Pool. Opțiuni incluse: i3ry permanent iOS (necesită certificat) și ninja engine permanent android.'
             }
         ];
 
-        // Memorie aplicatie (localStorage)
         let appState = {
             currentUser: JSON.parse(localStorage.getItem('kuanx_user')) || null,
             categories: JSON.parse(localStorage.getItem('kuanx_categories')) || DEFAULT_CATEGORIES,
@@ -397,7 +420,6 @@
             localStorage.setItem('kuanx_orders', JSON.stringify(appState.orders));
         }
 
-        // --- INIȚIALIZARE ---
         document.addEventListener('DOMContentLoaded', () => {
             renderAuthHeader();
             renderCategoryButtons();
@@ -405,7 +427,6 @@
             populateCategorySelect();
         });
 
-        // Navigation
         function showSection(section) {
             document.getElementById('storeSection').classList.add('hidden');
             document.getElementById('adminSection').classList.add('hidden');
@@ -422,13 +443,14 @@
                 renderAdminResellers();
                 renderAdminOrders();
             } else if (section === 'userKeys') {
-                if (!appState.currentUser) return;
                 document.getElementById('userKeysSection').classList.remove('hidden');
-                renderUserKeys();
+                if (appState.currentUser) {
+                    document.getElementById('searchUserEmail').value = appState.currentUser.email;
+                    searchKeysByEmail();
+                }
             }
         }
 
-        // Navigation Admin Tabs
         function switchAdminTab(tab) {
             const tabs = ['products', 'categories', 'resellers', 'orders'];
             tabs.forEach(t => {
@@ -446,7 +468,6 @@
             return s.charAt(0).toUpperCase() + s.slice(1);
         }
 
-        // Auth
         function renderAuthHeader() {
             const container = document.getElementById('authControls');
             if (appState.currentUser) {
@@ -472,8 +493,11 @@
                 `;
             } else {
                 container.innerHTML = `
+                    <button onclick="showSection('userKeys')" class="px-3 py-1.5 bg-dark-border text-gray-300 text-xs font-semibold rounded-lg hover:bg-gray-700 transition">
+                        Cheile Mele
+                    </button>
                     <button onclick="toggleModal('loginModal', true)" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium text-sm rounded-lg transition shadow-lg shadow-blue-600/20">
-                        Autentificare / Admin
+                        Login / Admin
                     </button>
                 `;
             }
@@ -505,7 +529,7 @@
                         email: email,
                         isAdmin: false,
                         isReseller: false,
-                        balance: 100.00
+                        balance: 0.00
                     };
                 }
             }
@@ -514,7 +538,7 @@
             toggleModal('loginModal', false);
             renderAuthHeader();
             renderProducts();
-            showNotification(`Te-ai autentificat cu succes ca ${appState.currentUser.email}!`, 'success');
+            showNotification(`Te-ai conectat ca ${appState.currentUser.email}!`, 'success');
         }
 
         function handleLogout() {
@@ -522,10 +546,9 @@
             saveData();
             renderAuthHeader();
             showSection('store');
-            showNotification('Te-ai deconectat cu succes.', 'info');
+            showNotification('Te-ai deconectat.', 'info');
         }
 
-        // Modal Helpers
         function toggleModal(id, show) {
             const el = document.getElementById(id);
             if (show) el.classList.remove('hidden');
@@ -536,7 +559,7 @@
             const area = document.getElementById('notificationArea');
             const bgClass = type === 'success' ? 'bg-emerald-950/80 border-emerald-500/30 text-emerald-300' : 'bg-blue-950/80 border-blue-500/30 text-blue-300';
             area.innerHTML = `
-                <div class="mb-6 p-4 rounded-xl border ${bgClass} backdrop-blur-md flex justify-between items-center animate-fade-in">
+                <div class="mb-6 p-4 rounded-xl border ${bgClass} backdrop-blur-md flex justify-between items-center">
                     <span class="text-sm">${msg}</span>
                     <button onclick="this.parentElement.remove()" class="text-xs opacity-70 hover:opacity-100">&times;</button>
                 </div>
@@ -544,7 +567,6 @@
             setTimeout(() => { if (area.firstChild) area.firstChild.remove(); }, 5000);
         }
 
-        // Categorii
         function renderCategoryButtons() {
             const container = document.getElementById('categoryButtonsContainer');
             container.innerHTML = appState.categories.map(cat => {
@@ -573,7 +595,6 @@
                 .join('');
         }
 
-        // Randare Produse Magazin
         function renderProducts() {
             const container = document.getElementById('productsGrid');
             const filtered = appState.products.filter(p => {
@@ -582,7 +603,7 @@
             });
 
             if (filtered.length === 0) {
-                container.innerHTML = `<div class="col-span-full text-center py-12 text-gray-500">Nu există moduri sau produse în această categorie.</div>`;
+                container.innerHTML = `<div class="col-span-full text-center py-12 text-gray-500">Nu există moduri în această categorie.</div>`;
                 return;
             }
 
@@ -631,18 +652,12 @@
             }).join('');
         }
 
-        // Cumpărare
         function openBuyModal(productId) {
-            if (!appState.currentUser) {
-                toggleModal('loginModal', true);
-                return;
-            }
-
             const prod = appState.products.find(p => p.id === productId);
             if (!prod) return;
 
             appState.pendingPurchaseProductId = productId;
-            const isReseller = appState.currentUser.isReseller;
+            const isReseller = appState.currentUser && appState.currentUser.isReseller;
             let price = prod.price;
             if (isReseller && !prod.category.includes('Certificate')) {
                 price = prod.price * 0.5;
@@ -652,28 +667,61 @@
                 <div class="bg-dark-bg p-4 rounded-xl border border-dark-border space-y-2 text-sm">
                     <div class="flex justify-between"><span class="text-gray-400">Produs:</span> <strong class="text-white">${prod.name}</strong></div>
                     <div class="flex justify-between"><span class="text-gray-400">Preț Final:</span> <strong class="text-emerald-400">${price.toFixed(2)} €</strong></div>
-                    <div class="flex justify-between"><span class="text-gray-400">Soldul Tău:</span> <strong class="text-blue-400">${appState.currentUser.balance.toFixed(2)} €</strong></div>
                 </div>
             `;
 
+            if (appState.currentUser) {
+                document.getElementById('buyerEmailInput').value = appState.currentUser.email;
+            }
+
+            document.getElementById('paymentMethodSelect').value = 'paysafecard';
+            togglePaymentFields();
             toggleModal('buyModal', true);
+        }
+
+        function togglePaymentFields() {
+            const method = document.getElementById('paymentMethodSelect').value;
+            const pinContainer = document.getElementById('paysafecardPinContainer');
+            if (method === 'paysafecard') {
+                pinContainer.classList.remove('hidden');
+            } else {
+                pinContainer.classList.add('hidden');
+            }
         }
 
         function executePurchase() {
             const prod = appState.products.find(p => p.id === appState.pendingPurchaseProductId);
             if (!prod) return;
 
-            let price = prod.price;
-            if (appState.currentUser.isReseller && !prod.category.includes('Certificate')) {
-                price = prod.price * 0.5;
-            }
-
-            if (appState.currentUser.balance < price) {
-                alert('Sold insuficient!');
+            const emailInput = document.getElementById('buyerEmailInput').value.trim();
+            if (!emailInput) {
+                alert('Te rugăm să introduci o adresă de email validă pentru a primi cheia.');
                 return;
             }
 
-            appState.currentUser.balance -= price;
+            const method = document.getElementById('paymentMethodSelect').value;
+            let price = prod.price;
+            if (appState.currentUser && appState.currentUser.isReseller && !prod.category.includes('Certificate')) {
+                price = prod.price * 0.5;
+            }
+
+            let pscPin = 'N/A (Plătit din sold)';
+
+            if (method === 'balance') {
+                if (!appState.currentUser || appState.currentUser.balance < price) {
+                    alert('Sold insuficient în cont! Alege plata cu Paysafecard.');
+                    return;
+                }
+                appState.currentUser.balance -= price;
+            } else if (method === 'paysafecard') {
+                const pinInput = document.getElementById('pscPinInput').value.trim();
+                if (!pinInput || pinInput.length < 8) {
+                    alert('Introdu un cod PIN Paysafecard valid.');
+                    return;
+                }
+                pscPin = pinInput;
+            }
+
             if (prod.stock !== 'infinit') {
                 let st = parseInt(prod.stock);
                 if (st > 0) prod.stock = (st - 1).toString();
@@ -681,9 +729,11 @@
 
             const order = {
                 id: 'ORD-' + Math.floor(Math.random() * 90000 + 10000),
-                userEmail: appState.currentUser.email,
+                userEmail: emailInput,
                 productName: prod.name,
                 price: price,
+                paymentMethod: method === 'paysafecard' ? 'Paysafecard' : 'Sold',
+                pscPin: pscPin,
                 date: new Date().toLocaleDateString('ro-RO'),
                 key: 'În așteptare livrare admin'
             };
@@ -694,7 +744,7 @@
             toggleModal('buyModal', false);
             renderAuthHeader();
             renderProducts();
-            showNotification(`Comandă plasată cu succes! Cheia va fi livrată în curând.`, 'success');
+            showNotification(`Comandă înregistrată! Poți verifica starea cheii introducând emailul ${emailInput} la secțiunea 'Cheile Mele'.`, 'success');
         }
 
         // --- ADMIN FUNCTIONS ---
@@ -834,6 +884,12 @@
                         <span class="text-blue-400 font-bold">${o.userEmail}</span>
                     </div>
                     <div class="text-sm font-semibold text-white">${o.productName} (${o.price.toFixed(2)} €)</div>
+                    
+                    <div class="text-xs bg-dark-card p-2 rounded border border-dark-border space-y-1">
+                        <div><span class="text-gray-400">Metodă plată:</span> <strong class="text-blue-400">${o.paymentMethod || 'Sold'}</strong></div>
+                        ${o.pscPin && o.pscPin !== 'N/A (Plătit din sold)' ? `<div><span class="text-gray-400">Cod Paysafecard:</span> <strong class="text-amber-400 font-mono">${o.pscPin}</strong></div>` : ''}
+                    </div>
+
                     <div class="flex items-center space-x-2">
                         <input type="text" id="key-input-${o.id}" value="${o.key}" class="flex-grow bg-dark-card border border-dark-border rounded p-2 text-xs text-emerald-400 font-mono">
                         <button onclick="updateOrderKey('${o.id}')" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs px-3 py-2 rounded font-bold">
@@ -854,12 +910,19 @@
             }
         }
 
-        function renderUserKeys() {
+        function searchKeysByEmail() {
+            const emailSearch = document.getElementById('searchUserEmail').value.trim().toLowerCase();
             const container = document.getElementById('userKeysList');
-            const myOrders = appState.orders.filter(o => o.userEmail === appState.currentUser.email);
+
+            if (!emailSearch) {
+                container.innerHTML = `<div class="bg-dark-card border border-dark-border rounded-xl p-6 text-center text-gray-500">Introdu o adresă de email mai sus pentru a căuta cheile cumpărate.</div>`;
+                return;
+            }
+
+            const myOrders = appState.orders.filter(o => o.userEmail.toLowerCase() === emailSearch);
 
             if (myOrders.length === 0) {
-                container.innerHTML = `<div class="bg-dark-card border border-dark-border rounded-xl p-8 text-center text-gray-500">Nu ai cumpărat nicio cheie până acum.</div>`;
+                container.innerHTML = `<div class="bg-dark-card border border-dark-border rounded-xl p-6 text-center text-gray-500">Nu a fost găsită nicio comandă pentru adresa: ${emailSearch}</div>`;
                 return;
             }
 
