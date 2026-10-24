@@ -7,12 +7,11 @@
     <style>
         :root {
             --bg-color: #0b0c10;
-            --card-bg: rgba(18, 19, 26, 0.82);
-            --border-color: rgba(212, 160, 23, 0.25);
+            --card-bg: rgba(18, 19, 26, 0.85);
+            --border-color: rgba(212, 160, 23, 0.3);
             --accent-gold: #ffc83b;
             --accent-orange: #ff6a00;
             --accent-green: #25d366;
-            --accent-blue: #0088cc;
             --text-main: #ffffff;
             --text-muted: #a0a0ab;
             --gradient-gold: linear-gradient(135deg, #ffc83b 0%, #ff8000 100%);
@@ -28,7 +27,7 @@
 
         body {
             background-color: var(--bg-color);
-            background-image: url('https://raw.githubusercontent.com/kuanxseller-crypto/kuanxstore/main/bg.png'); /* Fallback URL, va afișa imaginea integrată */
+            background-image: url('IMG_2589.jpeg'); /* Background-ul mare */
             background-repeat: no-repeat;
             background-position: center top;
             background-size: cover;
@@ -40,7 +39,7 @@
             padding-bottom: 50px;
         }
 
-        /* Continuous Yellow Snow & Stars Canvas */
+        /* Yellow Snow & Stars Canvas */
         #snow-canvas {
             position: fixed;
             top: 0;
@@ -68,19 +67,25 @@
             margin-bottom: 25px;
         }
 
-        .brand-logo-container {
+        .brand-logo-wrapper {
             width: 110px;
             height: 110px;
             margin-bottom: 12px;
             position: relative;
+            border-radius: 50%;
+            overflow: hidden;
+            box-shadow: 0 0 25px rgba(255, 200, 59, 0.5);
+            background: #161722;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid rgba(255, 200, 59, 0.6);
         }
 
         .brand-logo-img {
             width: 100%;
             height: 100%;
-            object-fit: contain;
-            border-radius: 50%;
-            box-shadow: 0 0 25px rgba(255, 200, 59, 0.4);
+            object-fit: cover;
         }
 
         .brand-title {
@@ -102,7 +107,7 @@
             margin-top: 2px;
         }
 
-        /* Header Contacts */
+        /* Contacts Header */
         .header-contacts {
             display: flex;
             gap: 10px;
@@ -125,8 +130,8 @@
             color: white;
             border: 1px solid rgba(255, 255, 255, 0.12);
             backdrop-filter: blur(10px);
-            background: rgba(0, 0, 0, 0.4);
-            transition: transform 0.2s, background 0.2s;
+            background: rgba(0, 0, 0, 0.5);
+            transition: transform 0.2s;
         }
 
         .contact-btn:active {
@@ -149,7 +154,7 @@
             margin: 20px 0;
         }
 
-        /* Hero Banner */
+        /* Hero */
         .hero-badge {
             display: inline-flex;
             align-items: center;
@@ -336,7 +341,7 @@
         }
 
         .price-box {
-            background: rgba(0, 0, 0, 0.4);
+            background: rgba(0, 0, 0, 0.5);
             border-radius: 12px;
             padding: 12px 16px;
             margin-bottom: 15px;
@@ -381,7 +386,7 @@
             color: #d0d0dc;
         }
 
-        /* Duration Selector for Drip Wire */
+        /* Duration Grid for Drip Wire */
         .duration-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -416,7 +421,7 @@
             color: #ffc83b;
         }
 
-        /* iOS Certificate Dedicated Flow Section */
+        /* Certificate Flow */
         .cert-section {
             background: var(--card-bg);
             border: 1px solid var(--border-color);
@@ -637,8 +642,9 @@
         
         <!-- Header -->
         <header>
-            <div class="brand-logo-container">
-                <img src="https://raw.githubusercontent.com/kuanxseller-crypto/kuanxstore/main/logo.png" alt="KUANXSTORE MODS" class="brand-logo-img">
+            <div class="brand-logo-wrapper">
+                <!-- Iconita mica IMG_2588.jpeg -->
+                <img src="IMG_2588.jpeg" alt="KUANXSTORE MODS" class="brand-logo-img">
             </div>
             <h1 class="brand-title">KUANXSTORE</h1>
             <div class="brand-subtitle">OFFICIAL MOD &amp; IOS STORE</div>
@@ -792,7 +798,7 @@
 
         </div>
 
-        <!-- iOS Certificates Dedicated Flow Section -->
+        <!-- iOS Certificates Section -->
         <div id="cert-flow-section" class="cert-section">
             <h3 style="font-size: 20px; font-weight: 800; margin-bottom: 6px; color: white;">
                 🛡️ Comandă Certificat iOS Developer
@@ -801,7 +807,7 @@
                 Permite instalarea oricărei aplicații modificate (.IPA) pe iPhone fără jailbreak.
             </p>
 
-            <!-- Step 1: UDID Link & Video Tutorial -->
+            <!-- Step 1 -->
             <div class="step-box">
                 <div class="step-title">
                     <span class="step-number">1</span> Obține UDID-ul Dispozitivului Tău
@@ -818,13 +824,12 @@
                     🎥 Tutorial Video (Sandy69):
                 </div>
 
-                <!-- Sandy69 YouTube Embed Video -->
                 <div class="video-container">
                     <iframe src="https://www.youtube.com/embed/8e7oY2D23Gc" title="How to Get UDID of an iPhone - Sandy69" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                 </div>
             </div>
 
-            <!-- Step 2: Paste UDID -->
+            <!-- Step 2 -->
             <div class="step-box">
                 <div class="step-title">
                     <span class="step-number">2</span> Introdu / Lipește (Paste) UDID-ul
@@ -835,7 +840,7 @@
                 <input type="text" id="user-udid-input" class="udid-input" placeholder="Lipește UDID-ul tău aici" oninput="validateUDID()">
             </div>
 
-            <!-- Step 3: Choose Certificate Option in EURO -->
+            <!-- Step 3 -->
             <div class="step-box">
                 <div class="step-title">
                     <span class="step-number">3</span> Alege Garanția Certificatului (€)
@@ -910,9 +915,7 @@
             <h3 class="modal-title">Finalizare Comandă</h3>
             <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 15px;">Detaliile comenzii au fost generate. Alege aplicația de mai jos pentru a le trimite direct:</p>
 
-            <div class="order-summary" id="modal-summary">
-                <!-- Injected dynamically -->
-            </div>
+            <div class="order-summary" id="modal-summary"></div>
 
             <div class="action-btns">
                 <a id="btn-send-tg" href="#" target="_blank" class="btn-send tg-btn">
@@ -926,7 +929,7 @@
     </div>
 
     <script>
-        // Yellow Snow & Stars Particle Animation
+        // Yellow Snow & Stars Canvas Animation
         const canvas = document.getElementById('snow-canvas');
         const ctx = canvas.getContext('2d');
 
