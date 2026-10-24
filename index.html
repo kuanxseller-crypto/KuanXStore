@@ -1,696 +1,1055 @@
 <!DOCTYPE html>
-<html lang="ro" class="dark">
+<html lang="ro">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KuanXStore - Official Gaming Mod Shop</title>
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        brandRed: '#ff2a2a',
-                        brandOrange: '#ff8800',
-                        brandYellow: '#ffcc00',
-                        darkBg: '#09090b',
-                        cardBg: '#121217'
-                    }
-                }
-            }
-        }
-    </script>
-    <!-- FontAwesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>KUANXSTORE - Premium Mods & iOS Certificates</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+        :root {
+            --bg-color: #0d0d11;
+            --card-bg: rgba(22, 22, 30, 0.75);
+            --border-color: rgba(255, 255, 255, 0.08);
+            --accent-orange: #ff5e00;
+            --accent-red: #ff2a00;
+            --accent-green: #25d366;
+            --accent-blue: #0088cc;
+            --text-main: #ffffff;
+            --text-muted: #a0a0ab;
+            --gradient-orange: linear-gradient(135deg, #ff7b00 0%, #ff2a00 100%);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
         body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: #050507;
-            color: #f3f4f6;
+            background-color: var(--bg-color);
+            color: var(--text-main);
             overflow-x: hidden;
+            position: relative;
+            min-height: 100vh;
+            padding-bottom: 50px;
         }
-        /* Glowing utilities */
-        .glow-red {
-            box-shadow: 0 0 25px rgba(255, 42, 42, 0.35);
-        }
-        .glow-orange {
-            box-shadow: 0 0 25px rgba(255, 136, 0, 0.35);
-        }
-        .text-glow-red {
-            text-shadow: 0 0 12px rgba(255, 42, 42, 0.6);
-        }
-        .text-glow-orange {
-            text-shadow: 0 0 12px rgba(255, 136, 0, 0.6);
-        }
-        /* Snowfall Canvas */
-        #snowCanvas {
+
+        /* Background Particle Canvas */
+        #particles-canvas {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px 15px;
+            position: relative;
             z-index: 1;
         }
-        /* Custom scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
+
+        /* Header / Branding */
+        header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            margin-bottom: 25px;
         }
-        ::-webkit-scrollbar-track {
-            background: #050507;
+
+        .brand-logo-box {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
         }
-        ::-webkit-scrollbar-thumb {
-            background: #27272a;
-            border-radius: 4px;
+
+        .logo-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--gradient-orange);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 24px;
+            box-shadow: 0 0 20px rgba(255, 94, 0, 0.4);
         }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #ff8800;
+
+        .brand-title {
+            font-size: 28px;
+            font-weight: 900;
+            letter-spacing: 1px;
+            background: linear-gradient(to right, #ff8000, #ff2a00);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-transform: uppercase;
+        }
+
+        .brand-subtitle {
+            font-size: 11px;
+            color: var(--text-muted);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        /* Header Contacts */
+        .header-contacts {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .contact-btn {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 10px 14px;
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 600;
+            text-decoration: none;
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+            transition: transform 0.2s, background 0.2s;
+        }
+
+        .contact-btn:active {
+            transform: scale(0.97);
+        }
+
+        .contact-btn.wa {
+            background: rgba(37, 211, 102, 0.15);
+            border-color: rgba(37, 211, 102, 0.3);
+            color: #25d366;
+        }
+
+        .contact-btn.tg {
+            background: rgba(0, 136, 204, 0.15);
+            border-color: rgba(0, 136, 204, 0.3);
+            color: #0088cc;
+        }
+
+        /* Divider */
+        .divider {
+            height: 1px;
+            background: linear-gradient(to right, transparent, var(--border-color), transparent);
+            margin: 20px 0;
+        }
+
+        /* Hero Banner */
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 14px;
+            border-radius: 20px;
+            background: rgba(255, 94, 0, 0.1);
+            border: 1px solid rgba(255, 94, 0, 0.3);
+            color: #ff8000;
+            font-size: 12px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .hero-title {
+            font-size: 26px;
+            font-weight: 800;
+            text-align: center;
+            line-height: 1.2;
+            margin-bottom: 8px;
+        }
+
+        .hero-title span {
+            color: var(--accent-orange);
+        }
+
+        .hero-desc {
+            font-size: 13px;
+            color: var(--text-muted);
+            text-align: center;
+            margin-bottom: 20px;
+            line-height: 1.4;
+        }
+
+        /* Bonus Card Banner */
+        .bonus-card {
+            background: linear-gradient(135deg, rgba(255, 123, 0, 0.15) 0%, rgba(255, 42, 0, 0.05) 100%);
+            border: 1px solid rgba(255, 123, 0, 0.3);
+            border-radius: 16px;
+            padding: 18px;
+            margin-bottom: 25px;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+
+        .bonus-tag {
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            color: #ff8000;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+        }
+
+        .bonus-title {
+            font-size: 17px;
+            font-weight: 800;
+            margin-bottom: 6px;
+        }
+
+        .bonus-desc {
+            font-size: 12px;
+            color: #c0c0cc;
+            line-height: 1.4;
+            margin-bottom: 14px;
+        }
+
+        .btn-gold {
+            width: 100%;
+            padding: 12px;
+            background: var(--gradient-orange);
+            border: none;
+            border-radius: 10px;
+            color: white;
+            font-weight: 700;
+            font-size: 14px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(255, 94, 0, 0.3);
+            transition: transform 0.2s, opacity 0.2s;
+        }
+
+        .btn-gold:active {
+            transform: scale(0.98);
+        }
+
+        /* Category Navigation Tabs */
+        .category-tabs {
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            scrollbar-width: none;
+        }
+
+        .category-tabs::-webkit-scrollbar {
+            display: none;
+        }
+
+        .tab-btn {
+            padding: 10px 16px;
+            border-radius: 10px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text-muted);
+            font-size: 13px;
+            font-weight: 600;
+            white-space: nowrap;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .tab-btn.active {
+            background: var(--gradient-orange);
+            color: white;
+            border-color: transparent;
+            box-shadow: 0 4px 12px rgba(255, 94, 0, 0.25);
+        }
+
+        /* Products Grid */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .product-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            backdrop-filter: blur(10px);
+            transition: transform 0.2s, border-color 0.2s;
+        }
+
+        .product-card:hover {
+            border-color: rgba(255, 94, 0, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 10px;
+        }
+
+        .card-badge {
+            font-size: 9px;
+            font-weight: 800;
+            padding: 3px 8px;
+            border-radius: 6px;
+            text-transform: uppercase;
+            background: rgba(37, 211, 102, 0.15);
+            color: #25d366;
+            border: 1px solid rgba(37, 211, 102, 0.3);
+        }
+
+        .product-title {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .product-desc {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+            line-height: 1.3;
+        }
+
+        .product-features {
+            list-style: none;
+            margin-bottom: 15px;
+        }
+
+        .product-features li {
+            font-size: 11px;
+            color: #c0c0cc;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .product-features li::before {
+            content: "✓";
+            color: var(--accent-orange);
+            font-weight: bold;
+        }
+
+        .card-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: auto;
+            padding-top: 10px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .price-tag {
+            font-size: 18px;
+            font-weight: 800;
+            color: white;
+        }
+
+        .btn-buy {
+            padding: 8px 14px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: white;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-buy:active {
+            transform: scale(0.95);
+            background: var(--gradient-orange);
+        }
+
+        /* Certificate Flow Modal / Section */
+        .cert-section {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 18px;
+            padding: 20px;
+            margin-top: 10px;
+            backdrop-filter: blur(10px);
+            display: none;
+        }
+
+        .cert-section.active {
+            display: block;
+        }
+
+        .step-box {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+
+        .step-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--accent-orange);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .step-number {
+            width: 22px;
+            height: 22px;
+            background: var(--gradient-orange);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 800;
+        }
+
+        .step-text {
+            font-size: 12px;
+            color: var(--text-muted);
+            line-height: 1.4;
+            margin-bottom: 10px;
+        }
+
+        .btn-udid-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+            padding: 12px;
+            background: rgba(0, 136, 204, 0.2);
+            border: 1px solid rgba(0, 136, 204, 0.4);
+            color: #38b6ff;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 13px;
+            text-decoration: none;
+            margin-bottom: 10px;
+        }
+
+        /* Video Container */
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            height: 0;
+            overflow: hidden;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 10px;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        /* Input field for UDID */
+        .udid-input {
+            width: 100%;
+            padding: 12px;
+            border-radius: 10px;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 94, 0, 0.3);
+            color: #25d366;
+            font-family: monospace;
+            font-size: 13px;
+            outline: none;
+            text-align: center;
+        }
+
+        .udid-input::placeholder {
+            color: #666;
+            font-family: -apple-system, sans-serif;
+        }
+
+        /* Certificate Options List */
+        .cert-options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .cert-option-btn {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: white;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .cert-option-btn.featured {
+            background: linear-gradient(135deg, rgba(37, 211, 102, 0.15) 0%, rgba(0, 200, 83, 0.05) 100%);
+            border: 1px solid rgba(37, 211, 102, 0.4);
+        }
+
+        .cert-option-btn:hover, .cert-option-btn.selected {
+            border-color: var(--accent-orange);
+            background: rgba(255, 94, 0, 0.15);
+        }
+
+        .cert-name {
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .cert-price {
+            font-size: 15px;
+            font-weight: 800;
+            color: #25d366;
+        }
+
+        /* Modal Overlay */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(8px);
+            z-index: 1000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: #16161e;
+            border: 1px solid rgba(255, 94, 0, 0.3);
+            border-radius: 18px;
+            max-width: 450px;
+            width: 100%;
+            padding: 22px;
+            position: relative;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        .modal-title {
+            font-size: 18px;
+            font-weight: 800;
+            margin-bottom: 12px;
+            color: white;
+        }
+
+        .modal-desc {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 15px;
+            line-height: 1.4;
+        }
+
+        .order-summary {
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 10px;
+            padding: 12px;
+            margin-bottom: 15px;
+            font-size: 12px;
+            line-height: 1.6;
+        }
+
+        .action-btns {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .btn-send {
+            padding: 12px;
+            border-radius: 10px;
+            border: none;
+            font-weight: 700;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            color: white;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .btn-send.tg-btn {
+            background: #0088cc;
+        }
+
+        .btn-send.wa-btn {
+            background: #25d366;
         }
     </style>
 </head>
-<body class="min-h-screen relative flex flex-col justify-between selection:bg-brandOrange selection:text-black">
+<body>
 
-    <!-- Canvas pentru Ninsoare -->
-    <canvas id="snowCanvas"></canvas>
+    <!-- Canvas Background -->
+    <canvas id="particles-canvas"></canvas>
 
-    <!-- Main Container -->
-    <div class="relative z-10 max-w-6xl mx-auto px-4 py-6 sm:px-6 lg:px-8 w-full">
+    <div class="container">
         
-        <!-- Header Nav & Logo -->
-        <header class="flex flex-col sm:flex-row items-center justify-between gap-4 py-4 mb-8 border-b border-white/10">
-            <div class="flex items-center gap-3">
-                <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-brandRed via-brandOrange to-brandYellow p-0.5 shadow-lg shadow-brandRed/20">
-                    <div class="w-full h-full bg-darkBg rounded-[10px] flex items-center justify-center">
-                        <i class="fa-solid fa-gamepad text-brandOrange text-xl"></i>
-                    </div>
-                </div>
+        <!-- Header -->
+        <header>
+            <div class="brand-logo-box">
+                <div class="logo-icon">🎮</div>
                 <div>
-                    <h1 class="text-2xl sm:text-3xl font-extrabold tracking-wider uppercase">
-                        <span class="text-brandRed text-glow-red">KUAN</span><span class="text-white">X</span><span class="text-brandOrange text-glow-orange">STORE</span>
-                    </h1>
-                    <p class="text-[11px] text-gray-400 font-medium tracking-widest uppercase">Premium Gaming Mods & iOS Certs</p>
+                    <h1 class="brand-title">KUANXSTORE</h1>
+                    <div class="brand-subtitle">PREMIUM GAMING MODS & IOS CERTS</div>
                 </div>
             </div>
 
-            <!-- Quick Contacts -->
-            <div class="flex items-center gap-3">
-                <a href="https://wa.me/40774485077" target="_blank" class="flex items-center gap-2 px-3 py-2 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 hover:bg-emerald-500/20 text-xs font-bold transition">
-                    <i class="fa-brands fa-whatsapp text-sm"></i>
-                    <span>0774 485 077</span>
+            <div class="header-contacts">
+                <a href="https://wa.me/40774485077" target="_blank" class="contact-btn wa">
+                    <span>💬</span> WhatsApp: 0774 485 077
                 </a>
-                <a href="https://t.me/kuanxsell" target="_blank" class="flex items-center gap-2 px-3 py-2 rounded-xl bg-sky-500/10 border border-sky-500/30 text-sky-400 hover:bg-sky-500/20 text-xs font-bold transition">
-                    <i class="fa-brands fa-telegram text-sm"></i>
-                    <span>@kuanxsell</span>
+                <a href="https://t.me/kuanxsell" target="_blank" class="contact-btn tg">
+                    <span>✈️</span> @kuanxsell
                 </a>
             </div>
         </header>
 
-        <!-- Welcome Banner -->
-        <section class="text-center mb-10">
-            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gradient-to-r from-brandRed/20 via-brandOrange/20 to-brandYellow/20 border border-brandOrange/30 text-brandYellow text-xs font-bold mb-3">
-                <i class="fa-solid fa-bolt text-brandOrange"></i> Offerte Exclusive & Moduri Inocuite Safely
-            </div>
-            <h2 class="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
-                Bine ai venit pe <span class="text-brandRed">KUAN</span><span class="text-white">X</span><span class="text-brandOrange">STORE</span>
-            </h2>
-            <p class="mt-2 text-gray-400 max-w-xl mx-auto text-sm sm:text-base">
-                Alege modurile preferate pentru <strong class="text-white">8 Ball Pool</strong>, <strong class="text-white">Free Fire</strong> sau achiziționează un <strong class="text-white">Certificat iOS Developer</strong> cu garanție!
+        <div class="divider"></div>
+
+        <!-- Hero Title -->
+        <div style="text-align: center;">
+            <div class="hero-badge">⚡ Oferte Exclusive & Moduri Înlocuite Safely</div>
+            <h2 class="hero-title">Bine ai venit pe <span>KUANXSTORE</span></h2>
+            <p class="hero-desc">
+                Alege modurile preferate pentru 8 Ball Pool, Free Fire sau achiziționează un Certificat iOS Developer cu garanție!
             </p>
-        </section>
-
-        <!-- SUPER BONUS BANNER -->
-        <section class="mb-10 bg-gradient-to-r from-brandRed/20 via-brandOrange/20 to-brandYellow/20 border border-brandOrange/40 rounded-2xl p-5 sm:p-6 shadow-2xl relative overflow-hidden backdrop-blur-md">
-            <div class="flex flex-col md:flex-row items-center justify-between gap-4">
-                <div class="flex items-center gap-4 text-left">
-                    <div class="w-12 h-12 rounded-xl bg-brandOrange/20 text-brandOrange flex items-center justify-center shrink-0 border border-brandOrange/40 text-2xl">
-                        🎁
-                    </div>
-                    <div>
-                        <span class="inline-block px-2.5 py-0.5 rounded-full text-xs font-extrabold bg-brandOrange/30 text-brandYellow border border-brandOrange/40 mb-1">
-                            BONUS EXCLUSIV CERTIFICATE
-                        </span>
-                        <h3 class="text-lg font-bold text-white">Bonus Gratuit la Cumpărarea Oricărui Certificat!</h3>
-                        <p class="text-xs sm:text-sm text-gray-300 mt-0.5">
-                            După cumpărare primești gratuit & permanent: 
-                            <span class="text-brandYellow font-semibold">YouTube Premium</span>, 
-                            <span class="text-brandYellow font-semibold">YouTube Music</span>, 
-                            <span class="text-brandYellow font-semibold">Spotify Premium</span> + 
-                            <span class="text-brandYellow font-semibold">1 aplicație la alegere</span>!
-                        </p>
-                    </div>
-                </div>
-                <button onclick="filterCategory('certificate')" class="w-full md:w-auto px-5 py-2.5 bg-gradient-to-r from-brandOrange to-brandYellow hover:brightness-110 text-gray-950 font-extrabold rounded-xl transition text-sm shadow-lg shrink-0">
-                    Vezi Certificat iOS
-                </button>
-            </div>
-        </section>
-
-        <!-- Dynamic Animated Category Filter Tabs -->
-        <div class="mb-8 flex justify-center">
-            <div class="relative bg-white/5 p-1.5 rounded-2xl border border-white/10 flex flex-wrap justify-center gap-1 sm:gap-2 max-w-full">
-                <!-- Moving Indicator Background -->
-                <div id="tabIndicator" class="absolute top-1.5 bottom-1.5 rounded-xl bg-gradient-to-r from-brandOrange to-brandYellow transition-all duration-300 ease-in-out shadow-lg shadow-brandOrange/30 z-0"></div>
-
-                <button id="btn-all" onclick="filterCategory('all')" class="relative z-10 px-4 py-2 rounded-xl text-xs sm:text-sm font-bold text-white transition flex items-center gap-2">
-                    <i class="fa-solid fa-border-all"></i> Toate Modurile
-                </button>
-                <button id="btn-8ball" onclick="filterCategory('8ball')" class="relative z-10 px-4 py-2 rounded-xl text-xs sm:text-sm font-bold text-gray-300 hover:text-white transition flex items-center gap-2">
-                    <i class="fa-solid fa-circle-dot"></i> 8 Ball Pool
-                </button>
-                <button id="btn-freefire" onclick="filterCategory('freefire')" class="relative z-10 px-4 py-2 rounded-xl text-xs sm:text-sm font-bold text-gray-300 hover:text-white transition flex items-center gap-2">
-                    <i class="fa-solid fa-fire text-brandRed"></i> Free Fire
-                </button>
-                <button id="btn-certificate" onclick="filterCategory('certificate')" class="relative z-10 px-4 py-2 rounded-xl text-xs sm:text-sm font-bold text-gray-300 hover:text-white transition flex items-center gap-2">
-                    <i class="fa-solid fa-certificate text-brandYellow"></i> Certificate iOS
-                </button>
-            </div>
         </div>
 
-        <!-- PRODUCTS GRID CONTAINER -->
-        <main id="productsGrid" class="space-y-10">
+        <!-- Bonus Banner Card -->
+        <div class="bonus-card">
+            <div class="bonus-tag">🎁 BONUS EXCLUSIV CERTIFICATE</div>
+            <div class="bonus-title">Bonus Gratuit la Cumpărarea Oricărui Certificat!</div>
+            <div class="bonus-desc">
+                După cumpărare primești gratuit & permanent: <strong>YouTube Premium, YouTube Music, Spotify Premium + 1 aplicație la alegere!</strong>
+            </div>
+            <button class="btn-gold" onclick="switchCategory('cert')">Vezi Certificate iOS</button>
+        </div>
 
-            <!-- 1. CATEGORIE 8 BALL POOL -->
-            <section data-category="8ball" class="category-block space-y-4">
-                <div class="flex items-center gap-3 border-b border-white/10 pb-3">
-                    <div class="p-2 rounded-xl bg-brandOrange/10 border border-brandOrange/30 text-brandOrange">
-                        <i class="fa-solid fa-circle-dot text-lg"></i>
-                    </div>
-                    <div>
-                        <h3 class="text-xl font-extrabold text-white uppercase tracking-wider">Moduri 8 Ball Pool</h3>
-                        <p class="text-xs text-gray-400">Autoplay, Fast Legit Human, Auto Queue Smart & Safe Farm</p>
-                    </div>
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    
-                    <!-- Ninja Engine (Android) -->
-                    <div class="bg-cardBg/90 border border-white/10 rounded-2xl p-5 hover:border-brandOrange/50 transition duration-300 flex flex-col justify-between shadow-xl backdrop-blur-md">
-                        <div>
-                            <div class="flex items-center justify-between mb-3">
-                                <span class="px-2.5 py-1 rounded-lg bg-emerald-500/20 text-emerald-400 font-bold text-xs border border-emerald-500/30">
-                                    <i class="fa-brands fa-android mr-1"></i> Android
-                                </span>
-                                <span class="text-xs font-semibold text-gray-400">Acces Permanent</span>
-                            </div>
-                            <h4 class="text-lg font-extrabold text-white">8 Ball Pool - Ninja Engine</h4>
-                            <p class="text-xs text-gray-400 mt-1">Sistem avansat de tragere automată, calculare traiectorie și joc complet automat.</p>
-
-                            <!-- Features List -->
-                            <div class="mt-4 space-y-1.5 text-xs text-gray-300">
-                                <div class="flex items-center gap-2"><i class="fa-solid fa-check text-brandOrange"></i> Autoplay Fast & Legit Human</div>
-                                <div class="flex items-center gap-2"><i class="fa-solid fa-check text-brandOrange"></i> Auto Queue Smart & Fix Random</div>
-                                <div class="flex items-center gap-2"><i class="fa-solid fa-check text-brandOrange"></i> Full Auto Farm Your Account Safe 80%</div>
-                                <div class="flex items-center gap-2"><i class="fa-solid fa-shield-halved text-emerald-400"></i> No Ban Leaderboard Safe</div>
-                            </div>
-                        </div>
-
-                        <div class="mt-6 pt-4 border-t border-white/10 flex items-center justify-between">
-                            <div>
-                                <span class="text-2xl font-black text-brandOrange">20€</span>
-                                <span class="text-xs font-bold text-gray-400 ml-1">(~100 LEI)</span>
-                            </div>
-                            <button onclick="openOrderModal('8 Ball Pool - Ninja Engine (Android)', '20€ / ~100 LEI', 'Permanent')" class="px-5 py-2.5 bg-gradient-to-r from-brandRed to-brandOrange hover:brightness-110 text-white font-bold rounded-xl text-xs transition shadow-md">
-                                <i class="fa-solid fa-cart-shopping mr-1.5"></i> Cumpără
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- i3ry Engine (iOS) -->
-                    <div class="bg-cardBg/90 border border-white/10 rounded-2xl p-5 hover:border-brandOrange/50 transition duration-300 flex flex-col justify-between shadow-xl backdrop-blur-md">
-                        <div>
-                            <div class="flex items-center justify-between mb-3">
-                                <span class="px-2.5 py-1 rounded-lg bg-sky-500/20 text-sky-400 font-bold text-xs border border-sky-500/30">
-                                    <i class="fa-brands fa-apple mr-1"></i> iOS (iPhone/iPad)
-                                </span>
-                                <span class="text-xs font-semibold text-amber-400 bg-amber-500/10 px-2 py-0.5 rounded border border-amber-500/30">Necesită Certificat</span>
-                            </div>
-                            <h4 class="text-lg font-extrabold text-white">8 Ball Pool - i3ry Engine</h4>
-                            <p class="text-xs text-gray-400 mt-1">Cea mai populară soluție pentru iOS cu traiectorii inteligente și modulare.</p>
-
-                            <!-- Features List -->
-                            <div class="mt-4 space-y-1.5 text-xs text-gray-300">
-                                <div class="flex items-center gap-2"><i class="fa-solid fa-check text-brandOrange"></i> Autoplay Fast & Legit Human</div>
-                                <div class="flex items-center gap-2"><i class="fa-solid fa-check text-brandOrange"></i> Auto Queue Smart & Fix Random</div>
-                                <div class="flex items-center gap-2"><i class="fa-solid fa-check text-brandOrange"></i> Full Auto Farm Your Account Safe 80%</div>
-                                <div class="flex items-center gap-2"><i class="fa-solid fa-shield-halved text-emerald-400"></i> No Ban Leaderboard Safe</div>
-                            </div>
-                        </div>
-
-                        <div class="mt-6 pt-4 border-t border-white/10 flex items-center justify-between">
-                            <div>
-                                <span class="text-2xl font-black text-brandOrange">22€</span>
-                                <span class="text-xs font-bold text-gray-400 ml-1">(~110 LEI)</span>
-                            </div>
-                            <button onclick="openOrderModal('8 Ball Pool - i3ry Engine (iOS)', '22€ / ~110 LEI', 'Permanent')" class="px-5 py-2.5 bg-gradient-to-r from-brandRed to-brandOrange hover:brightness-110 text-white font-bold rounded-xl text-xs transition shadow-md">
-                                <i class="fa-solid fa-cart-shopping mr-1.5"></i> Cumpără
-                            </button>
-                        </div>
-                    </div>
-
-                </div>
-            </section>
-
-            <!-- 2. CATEGORIE FREE FIRE -->
-            <section data-category="freefire" class="category-block space-y-4">
-                <div class="flex items-center gap-3 border-b border-white/10 pb-3">
-                    <div class="p-2 rounded-xl bg-brandRed/10 border border-brandRed/30 text-brandRed">
-                        <i class="fa-solid fa-fire text-lg"></i>
-                    </div>
-                    <div>
-                        <h3 class="text-xl font-extrabold text-white uppercase tracking-wider">Moduri Free Fire</h3>
-                        <p class="text-xs text-gray-400">Drip Wire No Root & Proxy Risk Permanent</p>
-                    </div>
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-
-                    <!-- Drip Wire -->
-                    <div class="bg-cardBg/90 border border-white/10 rounded-2xl p-5 hover:border-brandRed/50 transition duration-300 flex flex-col justify-between shadow-xl backdrop-blur-md">
-                        <div>
-                            <div class="flex items-center justify-between mb-3">
-                                <div class="flex gap-1.5">
-                                    <span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 font-bold text-[10px] border border-emerald-500/30">Android</span>
-                                    <span class="px-2 py-0.5 rounded bg-sky-500/20 text-sky-400 font-bold text-[10px] border border-sky-500/30">iOS</span>
-                                </div>
-                                <span class="text-[11px] font-bold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded">Fără Root / Fără Certificat</span>
-                            </div>
-                            <h4 class="text-lg font-extrabold text-white">Free Fire - Drip Wire</h4>
-                            <p class="text-xs text-gray-400 mt-1">Aimbot, ESP, Chams & Headshot Fix. Funcționează fără modificări de sistem root/certificări.</p>
-
-                            <!-- Plan Selector Buttons -->
-                            <div class="mt-4 p-3 rounded-xl bg-white/5 border border-white/10 space-y-2">
-                                <p class="text-xs font-bold text-gray-300">Selectează perioada dorită:</p>
-                                <div class="grid grid-cols-2 gap-2">
-                                    <button id="plan-7" onclick="selectDripPlan('7')" class="p-2 rounded-lg border border-brandOrange bg-brandOrange/20 text-white font-bold text-xs text-center transition">
-                                        7 Zile<br><span class="text-brandYellow">10€ (~50 LEI)</span>
-                                    </button>
-                                    <button id="plan-30" onclick="selectDripPlan('30')" class="p-2 rounded-lg border border-white/10 bg-black/40 text-gray-300 font-bold text-xs text-center hover:border-brandOrange transition">
-                                        30 Zile<br><span class="text-brandYellow">16,99€ (~85 LEI)</span>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="mt-6 pt-4 border-t border-white/10 flex items-center justify-between">
-                            <div>
-                                <span id="dripDisplayPrice" class="text-2xl font-black text-brandOrange">10€</span>
-                                <span id="dripDisplayRon" class="text-xs font-bold text-gray-400 ml-1">(~50 LEI)</span>
-                            </div>
-                            <button id="dripBuyBtn" onclick="openOrderModal('Free Fire - Drip Wire (7 Zile)', '10€ / ~50 LEI', '7 Zile')" class="px-5 py-2.5 bg-gradient-to-r from-brandRed to-brandOrange hover:brightness-110 text-white font-bold rounded-xl text-xs transition shadow-md">
-                                <i class="fa-solid fa-cart-shopping mr-1.5"></i> Cumpără
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Proxy Permanent Risk -->
-                    <div class="bg-cardBg/90 border border-white/10 rounded-2xl p-5 hover:border-brandRed/50 transition duration-300 flex flex-col justify-between shadow-xl backdrop-blur-md">
-                        <div>
-                            <div class="flex items-center justify-between mb-3">
-                                <span class="px-2.5 py-1 rounded-lg bg-emerald-500/20 text-emerald-400 font-bold text-xs border border-emerald-500/30">
-                                    <i class="fa-brands fa-android mr-1"></i> Android
-                                </span>
-                                <span class="text-xs font-extrabold text-brandRed bg-brandRed/10 px-2 py-0.5 rounded border border-brandRed/30">În Stoc Limitat</span>
-                            </div>
-                            <h4 class="text-lg font-extrabold text-white">Free Fire - Proxy Permanent (Risk)</h4>
-                            <p class="text-xs text-gray-400 mt-1">Mod de performanță ridicată pentru jucătorii agresivi. Doar varianta permanentă pe stoc.</p>
-
-                            <div class="mt-4 space-y-1.5 text-xs text-gray-300">
-                                <div class="flex items-center gap-2"><i class="fa-solid fa-check text-brandOrange"></i> Aimbot Auto Lock & High Damage</div>
-                                <div class="flex items-center gap-2"><i class="fa-solid fa-check text-brandOrange"></i> Anti-Lag & Fast Stream Settings</div>
-                                <div class="flex items-center gap-2"><i class="fa-solid fa-triangle-exclamation text-brandYellow"></i> Mod cu Riscuri (Folosire pe propria răspundere)</div>
-                            </div>
-                        </div>
-
-                        <div class="mt-6 pt-4 border-t border-white/10 flex items-center justify-between">
-                            <div>
-                                <span class="text-2xl font-black text-brandOrange">15€</span>
-                                <span class="text-xs font-bold text-gray-400 ml-1">(~75 LEI)</span>
-                            </div>
-                            <button onclick="openOrderModal('Free Fire - Proxy Permanent Risk (Android)', '15€ / ~75 LEI', 'Permanent')" class="px-5 py-2.5 bg-gradient-to-r from-brandRed to-brandOrange hover:brightness-110 text-white font-bold rounded-xl text-xs transition shadow-md">
-                                <i class="fa-solid fa-cart-shopping mr-1.5"></i> Cumpără
-                            </button>
-                        </div>
-                    </div>
-
-                </div>
-            </section>
-
-            <!-- 3. CATEGORIE CERTIFICATE iOS -->
-            <section data-category="certificate" class="category-block space-y-4">
-                <div class="flex items-center gap-3 border-b border-white/10 pb-3">
-                    <div class="p-2 rounded-xl bg-brandYellow/10 border border-brandYellow/30 text-brandYellow">
-                        <i class="fa-solid fa-certificate text-lg"></i>
-                    </div>
-                    <div>
-                        <h3 class="text-xl font-extrabold text-white uppercase tracking-wider">Certificate iOS / iPad</h3>
-                        <p class="text-xs text-gray-400">Instalează orice aplicație modată fără revocare pe dispozitivul tău Apple</p>
-                    </div>
-                </div>
-
-                <div class="bg-cardBg/90 border border-brandYellow/30 rounded-2xl p-6 hover:border-brandYellow/60 transition duration-300 shadow-2xl relative overflow-hidden backdrop-blur-md">
-                    <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
-                        
-                        <div class="space-y-3 max-w-2xl">
-                            <div class="flex flex-wrap items-center gap-2">
-                                <span class="px-3 py-1 rounded-lg bg-sky-500/20 text-sky-400 font-extrabold text-xs border border-sky-500/30">
-                                    <i class="fa-brands fa-apple mr-1"></i> iPhone & iPad OS
-                                </span>
-                                <span class="px-3 py-1 rounded-lg bg-amber-500/20 text-amber-300 font-extrabold text-xs border border-amber-500/30">
-                                    <i class="fa-solid fa-shield-check mr-1"></i> 1 An Permanent + 1 An Garanție
-                                </span>
-                            </div>
-
-                            <h4 class="text-2xl font-extrabold text-white">Certificat iOS Developer Personal</h4>
-                            <p class="text-xs sm:text-sm text-gray-300">
-                                Permite instalarea aplicațiilor modate (i3ry, Scarlet, Esign, TrollStore, YouTube Vance, Spotify Deluxe etc.) fără riscul de a fi blocate sau revocate.
-                            </p>
-
-                            <!-- Bonus Package List -->
-                            <div class="p-3.5 rounded-xl bg-gradient-to-r from-brandOrange/15 to-brandYellow/15 border border-brandOrange/30 text-xs text-gray-200">
-                                <p class="font-bold text-brandYellow mb-1 flex items-center gap-1.5">
-                                    <i class="fa-solid fa-gift text-brandOrange"></i> BONUS GRATUIT INCLUS LA CUMPĂRARE:
-                                </p>
-                                <p class="text-gray-300">
-                                    Abonament Permanent Gratuit la: <strong>YouTube Premium</strong>, <strong>YouTube Music</strong>, <strong>Spotify Premium</strong> + <strong>1 aplicație modată la alegere</strong>!
-                                </p>
-                            </div>
-
-                            <!-- Setup fee note -->
-                            <div class="p-3 rounded-xl bg-white/5 border border-white/10 text-xs text-gray-300 flex items-center gap-2">
-                                <i class="fa-solid fa-headset text-brandOrange text-base shrink-0"></i>
-                                <span><strong>Asistență Setup la Apel:</strong> Pentru asistență pas cu pas în apel telefonic/voce, se aplică o taxă opțională de <strong>5€ extra (~25 LEI)</strong>.</span>
-                            </div>
-                        </div>
-
-                        <!-- Price & Action -->
-                        <div class="w-full md:w-auto text-left md:text-right shrink-0 border-t md:border-t-0 border-white/10 pt-4 md:pt-0">
-                            <div class="mb-3">
-                                <span class="text-3xl font-black text-brandYellow">55€</span>
-                                <p class="text-xs font-bold text-gray-400">(~275 LEI)</p>
-                            </div>
-                            <button onclick="openOrderModal('Certificat iOS / iPad (1 An + Garanție)', '55€ / ~275 LEI', '1 An Permanent + 1 An Garanție')" class="w-full md:w-auto px-6 py-3 bg-gradient-to-r from-brandOrange to-brandYellow hover:brightness-110 text-gray-950 font-extrabold rounded-xl text-sm transition shadow-lg shadow-brandOrange/20">
-                                <i class="fa-solid fa-cart-shopping mr-2"></i> Cumpără Certificat
-                            </button>
-                        </div>
-
-                    </div>
-                </div>
-            </section>
-
-        </main>
-
-        <!-- FOOTER -->
-        <footer class="mt-20 pt-8 border-t border-white/10 text-center text-xs text-gray-500 space-y-2">
-            <p class="font-bold text-gray-400">KUANXSTORE &copy; 2026 - Toate drepturile rezervate.</p>
-            <p>Servicii de modding, instalare aplicații și suport tehnic prin WhatsApp și Telegram.</p>
-        </footer>
-
-    </div>
-
-    <!-- MODAL POPUP CUMPĂRARE -->
-    <div id="orderModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md hidden items-center justify-center p-4">
-        <div class="bg-cardBg border border-brandOrange/40 rounded-2xl max-w-md w-full p-6 shadow-2xl relative text-left">
-            
-            <!-- Close Button -->
-            <button onclick="closeOrderModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white text-lg">
-                <i class="fa-solid fa-xmark"></i>
+        <!-- Category Tabs Navigation -->
+        <div class="category-tabs">
+            <button class="tab-btn active" onclick="switchCategory('all', this)">
+                <span>📱</span> Toate Modurile
+            </button>
+            <button class="tab-btn" onclick="switchCategory('8ball', this)">
+                <span>🎱</span> 8 Ball Pool
+            </button>
+            <button class="tab-btn" onclick="switchCategory('ff', this)">
+                <span>🔥</span> Free Fire
             </button>
 
-            <!-- Header Modal -->
-            <div class="mb-4 pb-3 border-b border-white/10">
-                <span class="text-[10px] font-extrabold uppercase px-2 py-0.5 rounded bg-brandOrange/20 text-brandOrange border border-brandOrange/30">Comandă Instantă</span>
-                <h3 id="modalProductTitle" class="text-xl font-extrabold text-white mt-1">Nume Produs</h3>
-                <p id="modalProductPrice" class="text-sm font-black text-brandYellow mt-0.5">Preț: 0€</p>
+            <button class="tab-btn" onclick="switchCategory('cert', this)" id="cert-tab-btn">
+                <span>🛡️</span> Certificate iOS
+            </button>
+        </div>
+
+        <!-- Mod Products Grid -->
+        <div id="products-container" class="products-grid">
+            
+            <!-- 8 Ball Pool Mod 1 -->
+            <div class="product-card" data-cat="8ball">
+                <div>
+                    <div class="card-header">
+                        <span class="card-badge">Nedetectat</span>
+                        <span style="font-size: 11px; color: var(--text-muted);">v5.22.0</span>
+                    </div>
+                    <div class="product-title">8 Ball Pool - Easy Aim Line</div>
+                    <div class="product-desc">Linii extinse laser pentru țintire perfectă și ghidaj automat pentru orice lovitură.</div>
+                    <ul class="product-features">
+                        <li>Linii lungi 3D Laser</li>
+                        <li>Safe Main Account</li>
+                        <li>Fără Root / Jailbreak</li>
+                    </ul>
+                </div>
+                <div class="card-footer">
+                    <div class="price-tag">15€</div>
+                    <button class="btn-buy" onclick="openModCheckout('8 Ball Pool - Easy Aim Line', '15€')">Cumpără</button>
+                </div>
             </div>
 
-            <div class="space-y-4">
-                
-                <!-- 1. Select Payment Method -->
+            <!-- 8 Ball Pool Mod 2 -->
+            <div class="product-card" data-cat="8ball">
                 <div>
-                    <label class="block text-xs font-bold text-gray-300 mb-1.5">Alege Metoda de Plată:</label>
-                    <div class="grid grid-cols-3 gap-2">
-                        <button type="button" onclick="selectPayment('Paysafecard')" id="pay-paysafecard" class="p-2.5 rounded-xl border border-brandOrange bg-brandOrange/20 text-white font-bold text-xs text-center transition flex flex-col items-center gap-1">
-                            <i class="fa-solid fa-ticket text-brandYellow"></i>
-                            <span>Paysafecard</span>
-                        </button>
-                        <button type="button" onclick="selectPayment('PayPal')" id="pay-paypal" class="p-2.5 rounded-xl border border-white/10 bg-white/5 text-gray-300 font-bold text-xs text-center hover:border-brandOrange transition flex flex-col items-center gap-1">
-                            <i class="fa-brands fa-paypal text-sky-400"></i>
-                            <span>PayPal</span>
-                        </button>
-                        <button type="button" onclick="selectPayment('Transfer Bancar')" id="pay-bank" class="p-2.5 rounded-xl border border-white/10 bg-white/5 text-gray-300 font-bold text-xs text-center hover:border-brandOrange transition flex flex-col items-center gap-1">
-                            <i class="fa-solid fa-building-columns text-emerald-400"></i>
-                            <span>Transfer</span>
-                        </button>
+                    <div class="card-header">
+                        <span class="card-badge">VIP Auto</span>
+                        <span style="font-size: 11px; color: var(--text-muted);">VIP Mode</span>
                     </div>
+                    <div class="product-title">8 Ball Pool - Auto Play Bot</div>
+                    <div class="product-desc">Bot automat care joacă și câștigă meciuri pentru tine pentru a strânge monede rapid.</div>
+                    <ul class="product-features">
+                        <li>Auto Cue Shot</li>
+                        <li>Banca automatizată</li>
+                        <li>Sistem Anti-Ban V2</li>
+                    </ul>
                 </div>
-
-                <!-- Bonus reminder inside modal if certificate -->
-                <div id="modalBonusNotice" class="hidden p-3 rounded-xl bg-brandYellow/10 border border-brandYellow/30 text-xs text-brandYellow">
-                    <p class="font-bold flex items-center gap-1.5">
-                        <i class="fa-solid fa-gift"></i> Include Bonus Gratuit:
-                    </p>
-                    <p class="text-[11px] text-gray-300 mt-0.5">
-                        YouTube Premium, YT Music, Spotify Premium + 1 Aplicație la alegere!
-                    </p>
+                <div class="card-footer">
+                    <div class="price-tag">30€</div>
+                    <button class="btn-buy" onclick="openModCheckout('8 Ball Pool - Auto Play Bot', '30€')">Cumpără</button>
                 </div>
+            </div>
 
-                <p class="text-xs text-gray-400">
-                    Apasă pe platforma preferată de mai jos pentru a trimite comanda direct cu detaliile completate automat:
-                </p>
-
-                <!-- Action Contact Buttons -->
-                <div class="space-y-2 pt-2">
-                    <button onclick="sendOrder('whatsapp')" class="w-full py-3 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-xs sm:text-sm flex items-center justify-center gap-2 transition shadow-lg shadow-emerald-600/30">
-                        <i class="fa-brands fa-whatsapp text-lg"></i> Trimite Comanda pe WhatsApp
-                    </button>
-                    <button onclick="sendOrder('telegram')" class="w-full py-3 px-4 rounded-xl bg-sky-600 hover:bg-sky-500 text-white font-extrabold text-xs sm:text-sm flex items-center justify-center gap-2 transition shadow-lg shadow-sky-600/30">
-                        <i class="fa-brands fa-telegram text-lg"></i> Trimite Comanda pe Telegram
-                    </button>
+            <!-- Free Fire Mod 1 -->
+            <div class="product-card" data-cat="ff">
+                <div>
+                    <div class="card-header">
+                        <span class="card-badge">Ranked Safe</span>
+                        <span style="font-size: 11px; color: var(--text-muted);">OB44</span>
+                    </div>
+                    <div class="product-title">Free Fire - Aimbot + ESP Hack</div>
+                    <div class="product-desc">Vezi toți inamicii prin pereți și țintește direct pe cap la fiecare foc.</div>
+                    <ul class="product-features">
+                        <li>ESP Line & Box Name</li>
+                        <li>Aimbot Lock 99%</li>
+                        <li>High Damage Boost</li>
+                    </ul>
                 </div>
+                <div class="card-footer">
+                    <div class="price-tag">20€</div>
+                    <button class="btn-buy" onclick="openModCheckout('Free Fire - Aimbot + ESP Hack', '20€')">Cumpără</button>
+                </div>
+            </div>
 
+            <!-- Free Fire Mod 2 -->
+            <div class="product-card" data-cat="ff">
+                <div>
+                    <div class="card-header">
+                        <span class="card-badge">VIP Panel</span>
+                        <span style="font-size: 11px; color: var(--text-muted);">iOS / Android</span>
+                    </div>
+                    <div class="product-title">Free Fire - Full VIP Menu</div>
+                    <div class="product-desc">Meniu complet configurabil cu viteză sporită, fără recul și zbor peste hartă.</div>
+                    <ul class="product-features">
+                        <li>No Recoil & Fast Reload</li>
+                        <li>Ghost Mode</li>
+                        <li>Bypass Anti-Cheat</li>
+                    </ul>
+                </div>
+                <div class="card-footer">
+                    <div class="price-tag">35€</div>
+                    <button class="btn-buy" onclick="openModCheckout('Free Fire - Full VIP Menu', '35€')">Cumpără</button>
+                </div>
             </div>
 
         </div>
+
+        <!-- iOS Certificates Dedicated Flow Section -->
+        <div id="cert-flow-section" class="cert-section">
+            <h3 style="font-size: 20px; font-weight: 800; margin-bottom: 6px; color: white;">
+                🛡️ Comandă Certificat iOS Developer
+            </h3>
+            <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 20px;">
+                Permite instalarea oricărei aplicații modificate (.IPA) pe iPhone fără jailbreak.
+            </p>
+
+            <!-- Step 1: UDID Link & Video Tutorial -->
+            <div class="step-box">
+                <div class="step-title">
+                    <span class="step-number">1</span> Obține UDID-ul Dispozitivului Tău
+                </div>
+                <div class="step-text">
+                    Apasă pe butonul de mai jos pentru a deschide site-ul securizat care îți va citi UDID-ul. Descarcă profilul temporar din Safari, mergi la <strong>Setări &gt; Profil Descărcat</strong>, instalează-l, apoi Copiază (Copy) codul UDID afișat!
+                </div>
+                
+                <a href="https://udid.tech/" target="_blank" class="btn-udid-link">
+                    🚀 Deschide UDID.tech în Safari
+                </a>
+
+                <div style="font-size: 12px; font-weight: 700; color: white; margin-top: 15px; margin-bottom: 8px;">
+                    🎥 Nu știi cum se face? Urmărește Tutorialul Video (Sandy69):
+                </div>
+
+                <!-- Sandy69 YouTube Embed Video -->
+                <div class="video-container">
+                    <iframe src="https://www.youtube.com/embed/8e7oY2D23Gc" title="How to Get UDID of an iPhone - Sandy69" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+            </div>
+
+            <!-- Step 2: Paste UDID -->
+            <div class="step-box">
+                <div class="step-title">
+                    <span class="step-number">2</span> Introdu/Lipește (Paste) UDID-ul
+                </div>
+                <div class="step-text">
+                    Lipește în câmpul de mai jos codul de 25-40 de caractere extras la pasul anterior:
+                </div>
+                <input type="text" id="user-udid-input" class="udid-input" placeholder="Lipește UDID-ul tău aici (ex: 00008030-0009559C2612802E)" oninput="validateUDID()">
+            </div>
+
+            <!-- Step 3: Choose Certificate Option in EURO -->
+            <div class="step-box">
+                <div class="step-title">
+                    <span class="step-number">3</span> Alege Garanția Certificatului (€)
+                </div>
+
+                <div class="cert-options">
+                    
+                    <div class="cert-option-btn" onclick="selectCertTier('30-Day Warranty', '25€', this)">
+                        <div>
+                            <div class="cert-name">30-Day Warranty Certificate</div>
+                            <div style="font-size: 11px; color: var(--text-muted);">Înlocuire gratuită dacă se revocă în 30 zile</div>
+                        </div>
+                        <div class="cert-price">25€</div>
+                    </div>
+
+                    <div class="cert-option-btn" onclick="selectCertTier('60-Day Warranty', '30€', this)">
+                        <div>
+                            <div class="cert-name">60-Day Warranty Certificate</div>
+                            <div style="font-size: 11px; color: var(--text-muted);">Garanție extinsă 2 luni</div>
+                        </div>
+                        <div class="cert-price">30€</div>
+                    </div>
+
+                    <div class="cert-option-btn" onclick="selectCertTier('90-Day Warranty', '35€', this)">
+                        <div>
+                            <div class="cert-name">90-Day Warranty Certificate</div>
+                            <div style="font-size: 11px; color: var(--text-muted);">Garanție standard 3 luni</div>
+                        </div>
+                        <div class="cert-price">35€</div>
+                    </div>
+
+                    <div class="cert-option-btn" onclick="selectCertTier('180-Day Warranty', '40€', this)">
+                        <div>
+                            <div class="cert-name">180-Day Warranty Certificate</div>
+                            <div style="font-size: 11px; color: var(--text-muted);">Protecție 6 luni</div>
+                        </div>
+                        <div class="cert-price">40€</div>
+                    </div>
+
+                    <div class="cert-option-btn" onclick="selectCertTier('300-Day Warranty', '50€', this)">
+                        <div>
+                            <div class="cert-name">300-Day Warranty Certificate</div>
+                            <div style="font-size: 11px; color: var(--text-muted);">Protecție aproape 1 an</div>
+                        </div>
+                        <div class="cert-price">50€</div>
+                    </div>
+
+                    <!-- Permanent Tier -->
+                    <div class="cert-option-btn featured" onclick="selectCertTier('Permanent / Lifetime Warranty', '70€', this)">
+                        <div>
+                            <div class="cert-name" style="color: #25d366;">👑 Permanent / Lifetime Certificate</div>
+                            <div style="font-size: 11px; color: var(--text-muted);">Acces permanent + Revocare gratuită pe viață</div>
+                        </div>
+                        <div class="cert-price">70€</div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Submit Button -->
+            <button class="btn-gold" style="margin-top: 10px; padding: 15px; font-size: 16px;" onclick="submitCertOrder()">
+                🛒 Trimite Comanda Certificat
+            </button>
+        </div>
+
     </div>
 
-    <!-- JAVASCRIPT LOGIC -->
+    <!-- Modal Order Checkout -->
+    <div id="checkout-modal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal()">✕</button>
+            <h3 class="modal-title">Finalizare Comandă</h3>
+            <p class="modal-desc">Detaliile comenzii tale au fost pregătite. Alege aplicația prin care vrei să ne trimiți datele pentru livrare instantă:</p>
+
+            <div class="order-summary" id="modal-summary">
+                <!-- Injected dynamically -->
+            </div>
+
+            <div class="action-btns">
+                <a id="btn-send-tg" href="#" target="_blank" class="btn-send tg-btn">
+                    <span>✈️</span> Trimite pe Telegram (@kuanxsell)
+                </a>
+                <a id="btn-send-wa" href="#" target="_blank" class="btn-send wa-btn">
+                    <span>💬</span> Trimite pe WhatsApp (0774 485 077)
+                </a>
+            </div>
+        </div>
+    </div>
+
     <script>
-        // Global Order State
-        let currentOrder = {
-            product: '',
-            price: '',
-            period: '',
-            paymentMethod: 'Paysafecard'
-        };
+        // Background Particle System
+        const canvas = document.getElementById('particles-canvas');
+        const ctx = canvas.getContext('2d');
 
-        // Drip Wire Selected Plan State
-        let dripPlan = {
-            duration: '7 Zile',
-            priceEur: '10€',
-            priceRon: '~50 LEI'
-        };
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
 
-        function selectDripPlan(days) {
-            const btn7 = document.getElementById('plan-7');
-            const btn30 = document.getElementById('plan-30');
-            const priceDisplay = document.getElementById('dripDisplayPrice');
-            const ronDisplay = document.getElementById('dripDisplayRon');
+        const particles = [];
+        for (let i = 0; i < 40; i++) {
+            particles.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                size: Math.random() * 2 + 1,
+                speedY: Math.random() * 0.5 + 0.1,
+                opacity: Math.random() * 0.5 + 0.2
+            });
+        }
 
-            if (days === '7') {
-                dripPlan = { duration: '7 Zile', priceEur: '10€', priceRon: '~50 LEI' };
-                btn7.className = "p-2 rounded-lg border border-brandOrange bg-brandOrange/20 text-white font-bold text-xs text-center transition";
-                btn30.className = "p-2 rounded-lg border border-white/10 bg-black/40 text-gray-300 font-bold text-xs text-center hover:border-brandOrange transition";
-            } else {
-                dripPlan = { duration: '30 Zile', priceEur: '16,99€', priceRon: '~85 LEI' };
-                btn30.className = "p-2 rounded-lg border border-brandOrange bg-brandOrange/20 text-white font-bold text-xs text-center transition";
-                btn7.className = "p-2 rounded-lg border border-white/10 bg-black/40 text-gray-300 font-bold text-xs text-center hover:border-brandOrange transition";
-            }
-
-            priceDisplay.innerText = dripPlan.priceEur;
-            ronDisplay.innerText = `(${dripPlan.priceRon})`;
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = 'rgba(255, 120, 0, 0.6)';
             
-            // Update onclick handler for Buy Button
-            document.getElementById('dripBuyBtn').setAttribute(
-                'onclick', 
-                `openOrderModal('Free Fire - Drip Wire (${dripPlan.duration})', '${dripPlan.priceEur} / ${dripPlan.priceRon}', '${dripPlan.duration}')`
-            );
-        }
+            particles.forEach(p => {
+                ctx.globalAlpha = p.opacity;
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                ctx.fill();
 
-        // Category Filter with Moving Indicator
-        function filterCategory(category) {
-            const blocks = document.querySelectorAll('.category-block');
-            blocks.forEach(block => {
-                if (category === 'all' || block.getAttribute('data-category') === category) {
-                    block.style.display = 'block';
-                } else {
-                    block.style.display = 'none';
+                p.y -= p.speedY;
+                if (p.y < 0) {
+                    p.y = canvas.height;
+                    p.x = Math.random() * canvas.width;
                 }
             });
+            requestAnimationFrame(animateParticles);
+        }
+        animateParticles();
 
-            // Update tab styles & moving indicator position
-            const tabs = {
-                'all': document.getElementById('btn-all'),
-                '8ball': document.getElementById('btn-8ball'),
-                'freefire': document.getElementById('btn-freefire'),
-                'certificate': document.getElementById('btn-certificate')
-            };
+        // Switching Navigation Categories
+        function switchCategory(category, btnElement) {
+            const tabs = document.querySelectorAll('.tab-btn');
+            tabs.forEach(t => t.classList.remove('active'));
 
-            const indicator = document.getElementById('tabIndicator');
-            const activeTab = tabs[category];
-
-            if (activeTab && indicator) {
-                indicator.style.width = activeTab.offsetWidth + 'px';
-                indicator.style.left = activeTab.offsetLeft + 'px';
+            if (btnElement) {
+                btnElement.classList.add('active');
+            } else if (category === 'cert') {
+                document.getElementById('cert-tab-btn').classList.add('active');
             }
 
-            // Text colors
-            Object.keys(tabs).forEach(key => {
-                if (tabs[key]) {
-                    if (key === category) {
-                        tabs[key].classList.add('text-white');
-                        tabs[key].classList.remove('text-gray-300');
-                    } else {
-                        tabs[key].classList.remove('text-white');
-                        tabs[key].classList.add('text-gray-300');
-                    }
-                }
-            });
-        }
+            const productsGrid = document.getElementById('products-container');
+            const certSection = document.getElementById('cert-flow-section');
 
-        // Modal Handlers
-        function openOrderModal(title, price, period) {
-            currentOrder.product = title;
-            currentOrder.price = price;
-            currentOrder.period = period;
-
-            document.getElementById('modalProductTitle').innerText = title;
-            document.getElementById('modalProductPrice').innerText = 'Preț: ' + price;
-
-            // Show bonus box if certificate
-            const bonusBox = document.getElementById('modalBonusNotice');
-            if (title.toLowerCase().includes('certificat')) {
-                bonusBox.classList.remove('hidden');
+            if (category === 'cert') {
+                productsGrid.style.display = 'none';
+                certSection.classList.add('active');
             } else {
-                bonusBox.classList.add('hidden');
-            }
+                certSection.classList.remove('active');
+                productsGrid.style.display = 'grid';
 
-            document.getElementById('orderModal').classList.remove('hidden');
-            document.getElementById('orderModal').classList.add('flex');
-        }
-
-        function closeOrderModal() {
-            document.getElementById('orderModal').classList.add('hidden');
-            document.getElementById('orderModal').classList.remove('flex');
-        }
-
-        function selectPayment(method) {
-            currentOrder.paymentMethod = method;
-
-            const methods = ['Paysafecard', 'PayPal', 'Transfer Bancar'];
-            const ids = {
-                'Paysafecard': 'pay-paysafecard',
-                'PayPal': 'pay-paypal',
-                'Transfer Bancar': 'pay-bank'
-            };
-
-            methods.forEach(m => {
-                const btn = document.getElementById(ids[m]);
-                if (m === method) {
-                    btn.className = "p-2.5 rounded-xl border border-brandOrange bg-brandOrange/20 text-white font-bold text-xs text-center transition flex flex-col items-center gap-1";
-                } else {
-                    btn.className = "p-2.5 rounded-xl border border-white/10 bg-white/5 text-gray-300 font-bold text-xs text-center hover:border-brandOrange transition flex flex-col items-center gap-1";
-                }
-            });
-        }
-
-        function sendOrder(platform) {
-            const message = `Salut KuanXStore! Doresc să cumpăr urmăritorul produs:\n\n` +
-                `📌 Produs: ${currentOrder.product}\n` +
-                `⏳ Perioadă: ${currentOrder.period}\n` +
-                `💰 Preț: ${currentOrder.price}\n` +
-                `💳 Metodă de plată selectată: ${currentOrder.paymentMethod}\n\n` +
-                `Aștept detaliile pentru finalizarea plății!`;
-
-            const encodedMessage = encodeURIComponent(message);
-
-            if (platform === 'whatsapp') {
-                window.open(`https://wa.me/40774485077?text=${encodedMessage}`, '_blank');
-            } else if (platform === 'telegram') {
-                window.open(`https://t.me/kuanxsell`, '_blank');
-            }
-        }
-
-        // Initialize Indicator Position on Load
-        window.addEventListener('load', () => {
-            filterCategory('all');
-            initSnow();
-        });
-
-        // Resize handler for tabs indicator
-        window.addEventListener('resize', () => {
-            const activeBtn = document.querySelector('.category-block[style*="block"]') ? document.getElementById('btn-all') : document.getElementById('btn-all');
-            filterCategory('all');
-        });
-
-        // Background Canvas Snow Animation
-        function initSnow() {
-            const canvas = document.getElementById('snowCanvas');
-            const ctx = canvas.getContext('2d');
-
-            let width = canvas.width = window.innerWidth;
-            let height = canvas.height = window.innerHeight;
-
-            window.addEventListener('resize', () => {
-                width = canvas.width = window.innerWidth;
-                height = canvas.height = window.innerHeight;
-            });
-
-            const numFlakes = 65;
-            const flakes = [];
-
-            for (let i = 0; i < numFlakes; i++) {
-                flakes.push({
-                    x: Math.random() * width,
-                    y: Math.random() * height,
-                    r: Math.random() * 2.5 + 1,
-                    d: Math.random() * 1 + 0.5,
-                    opacity: Math.random() * 0.5 + 0.3
+                const cards = document.querySelectorAll('.product-card');
+                cards.forEach(card => {
+                    if (category === 'all' || card.getAttribute('data-cat') === category) {
+                        card.style.display = 'flex';
+                    } else {
+                        card.style.display = 'none';
+                    }
                 });
             }
+        }
 
-            function drawFlakes() {
-                ctx.clearRect(0, 0, width, height);
-                ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+        // Selection State for Certificates
+        let selectedCertName = 'Permanent / Lifetime Warranty';
+        let selectedCertPrice = '70€';
 
-                for (let i = 0; i < numFlakes; i++) {
-                    const f = flakes[i];
-                    ctx.beginPath();
-                    ctx.fillStyle = `rgba(255, 255, 255, ${f.opacity})`;
-                    ctx.arc(f.x, f.y, f.r, 0, Math.PI * 2, true);
-                    ctx.fill();
+        function selectCertTier(name, price, element) {
+            selectedCertName = name;
+            selectedCertPrice = price;
 
-                    // Movement
-                    f.y += f.d;
-                    f.x += Math.sin(f.y * 0.01) * 0.5;
+            const btns = document.querySelectorAll('.cert-option-btn');
+            btns.forEach(b => b.classList.remove('selected'));
+            element.classList.add('selected');
+        }
 
-                    // Reset when offscreen
-                    if (f.y > height) {
-                        flakes[i] = {
-                            x: Math.random() * width,
-                            y: -10,
-                            r: f.r,
-                            d: f.d,
-                            opacity: f.opacity
-                        };
-                    }
-                }
-                requestAnimationFrame(drawFlakes);
+        function validateUDID() {
+            const val = document.getElementById('user-udid-input').value.trim();
+            const input = document.getElementById('user-udid-input');
+            if (val.length >= 20) {
+                input.style.borderColor = '#25d366';
+            } else {
+                input.style.borderColor = 'rgba(255, 94, 0, 0.3)';
+            }
+        }
+
+        // Submit Order Logic
+        function submitCertOrder() {
+            const udid = document.getElementById('user-udid-input').value.trim();
+            if (!udid) {
+                alert('Te rugăm să introduci / lipești UDID-ul tău mai întâi!');
+                document.getElementById('user-udid-input').focus();
+                return;
             }
 
-            drawFlakes();
+            const message = `Salut! Doresc să cumpăr un Certificat iOS pe KUANXSTORE:\n\n📦 Pachet: ${selectedCertName}\n💰 Preț: ${selectedCertPrice}\n📱 UDID: ${udid}\n🎁 Bonus: YouTube Premium + Spotify Premium`;
+
+            openCheckoutModal('Certificat iOS Developer', selectedCertPrice, message);
+        }
+
+        function openModCheckout(modName, price) {
+            const message = `Salut! Doresc să cumpăr modul de joc de pe KUANXSTORE:\n\n🎮 Mod: ${modName}\n💰 Preț: ${price}`;
+            openCheckoutModal(modName, price, message);
+        }
+
+        function openCheckoutModal(title, price, fullMessage) {
+            const summaryHtml = `
+                <strong>Produs:</strong> ${title}<br>
+                <strong>Preț:</strong> <span style="color:#25d366; font-weight:bold;">${price}</span><br>
+                <div style="margin-top:8px; font-size:11px; color:#aaa; word-break:break-all;">
+                    <em>${fullMessage.replace(/\n/g, '<br>')}</em>
+                </div>
+            `;
+            document.getElementById('modal-summary').innerHTML = summaryHtml;
+
+            const encodedMsg = encodeURIComponent(fullMessage);
+            document.getElementById('btn-send-tg').href = `https://t.me/kuanxsell?text=${encodedMsg}`;
+            document.getElementById('btn-send-wa').href = `https://wa.me/40774485077?text=${encodedMsg}`;
+
+            document.getElementById('checkout-modal').classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('checkout-modal').classList.remove('active');
         }
     </script>
 </body>
